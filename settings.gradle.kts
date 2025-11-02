@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Moodiary"
 include(":app")
+include(":data")
+include(":domain")
