@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="moodPrimary">#6C5CE7</color>    <!-- 부드러운 보라 -->
+    <color name="moodSecondary">#00B894</color>  <!-- 차분한 청록 -->
+    <color name="moodCalm">#74B9FF</color>       <!-- 연한 하늘색 -->
+    <color name="moodNeutral">#95A5A6</color>    <!-- 중립 그레이 -->
+    <color name="moodPositive">#FFEAA7</color>   <!-- 따뜻한 옐로우 -->
+    <color name="moodNegative">#FF7675</color>   <!-- 부드러운 레드 -->
+    <color name="moodBackground">#F7F9FC</color> <!-- 전체 배경용 연한 색 -->
 </resources>
