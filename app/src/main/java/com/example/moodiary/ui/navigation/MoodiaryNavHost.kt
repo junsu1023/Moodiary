@@ -18,6 +18,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.moodiary.R
 import com.example.moodiary.ui.components.BottomBar
 import com.example.moodiary.ui.components.MoodTopBar
+import com.example.moodiary.ui.view.DiaryWriteScreen
 import com.example.moodiary.ui.view.HomeScreen
 
 @Composable
@@ -26,6 +27,7 @@ fun MoodiaryNavHost(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Home.route
+    val onBack: () -> Unit = { navController.popBackStack() }
 
     Scaffold(
         topBar = {
@@ -58,7 +60,9 @@ fun MoodiaryNavHost(
             }
 
             composable(Screen.Write.route) {
-
+                DiaryWriteScreen(
+                    onBack = onBack
+                )
             }
 
             composable(Screen.History.route) {
