@@ -5,5 +5,16 @@
     <string name="score">점수</string>
     <string name="recommend_music">추천 음악</string>
     <string name="displayed_recommend_music">추천 음악이 여기에 표시됩니다.</string>
-
+    <string name="recommend_phrase">추천 글귀</string>
+    <string name="displayed_recommend_phrase">추천 글귀가 여기에 표시됩니다.</string>
+    <string name="write_diary">일기 작성</string>
+    <string name="save">저장</string>
+    <string name="analyze_mood_result">감정 분석 결과</string>
+    <string name="mood_history">감정 히스토리</string>
+    <string name="no_diary_filtered">해당 감정의 기록이 없습니다.</string>
+    <string name="happy">행복</string>
+    <string name="sad">슬픔</string>
+    <string name="angry">분노</string>
+    <string name="anxious">불안</string>
+    <string name="calm">평온</string>
 </resources>

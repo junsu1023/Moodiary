@@ -31,10 +31,11 @@ fun RecommendationCard(
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         // 음악 카드
-        Card(modifier = Modifier
-            .fillMaxWidth()
-            .padding(4.dp)
-            .then(if (music != null && onMusicClick != null) Modifier.clickable { onMusicClick() } else Modifier)
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp)
+                .then(if (music != null && onMusicClick != null) Modifier.clickable { onMusicClick() } else Modifier)
         ) {
             Row(
                 modifier = Modifier
@@ -67,14 +68,16 @@ fun RecommendationCard(
         }
 
         // 글귀 카드
-        Card(modifier = Modifier
-            .fillMaxWidth()
-            .padding(4.dp)
-            .then(if (quote != null && onQuoteClick != null) Modifier.clickable { onQuoteClick() } else Modifier)
-        ) {
-            Row(modifier = Modifier
+        Card(
+            modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(4.dp)
+                .then(if (quote != null && onQuoteClick != null) Modifier.clickable { onQuoteClick() } else Modifier)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp),
                 horizontalArrangement = Arrangement.Start
             ) {
                 Icon(
@@ -83,10 +86,20 @@ fun RecommendationCard(
                     tint = colorResource(id = R.color.moodPrimary),
                     modifier = Modifier.size(28.dp)
                 )
+
                 Spacer(modifier = Modifier.size(8.dp))
+
                 Column {
-                    Text(text = "추천 글귀", style = MaterialTheme.typography.bodySmall, color = colorResource(id = R.color.moodNeutral))
-                    Text(text = quote ?: "추천 글귀가 여기에 표시됩니다.", style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        text = stringResource(R.string.recommend_phrase),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = colorResource(id = R.color.moodNeutral)
+                    )
+
+                    Text(
+                        text = quote ?: stringResource(R.string.displayed_recommend_phrase),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
                 }
             }
         }
