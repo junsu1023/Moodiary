@@ -19,6 +19,7 @@ import com.example.moodiary.R
 import com.example.moodiary.ui.components.BottomBar
 import com.example.moodiary.ui.components.MoodTopBar
 import com.example.moodiary.ui.view.DiaryWriteScreen
+import com.example.moodiary.ui.view.EmotionHistoryScreen
 import com.example.moodiary.ui.view.HomeScreen
 
 @Composable
@@ -66,7 +67,7 @@ fun MoodiaryNavHost(
             }
 
             composable(Screen.History.route) {
-
+                EmotionHistoryScreen()
             }
 
             composable(Screen.Settings.route) {
