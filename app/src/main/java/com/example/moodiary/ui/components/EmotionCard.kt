@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.colorResource
@@ -32,9 +33,10 @@ fun EmotionCard(title: String, score: Int) {
     val startAngle = 120f           // 시작 각도 (결과적으로 gap이 하단 중앙에 위치)
     val strokeWidth = 18f
 
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .padding(4.dp)
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp)
     ) {
         Column(
             modifier = Modifier
@@ -67,7 +69,7 @@ fun EmotionCard(title: String, score: Int) {
                         sweepAngle = arcSweep,
                         useCenter = false,
                         topLeft = Offset(inset, inset),
-                        size = androidx.compose.ui.geometry.Size(diameter - strokeWidth, diameter - strokeWidth),
+                        size = Size(diameter - strokeWidth, diameter - strokeWidth),
                         style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
                     )
 
@@ -79,7 +81,7 @@ fun EmotionCard(title: String, score: Int) {
                         sweepAngle = foregroundSweep,
                         useCenter = false,
                         topLeft = Offset(inset, inset),
-                        size = androidx.compose.ui.geometry.Size(diameter - strokeWidth, diameter - strokeWidth),
+                        size = Size(diameter - strokeWidth, diameter - strokeWidth),
                         style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
                     )
                 }
