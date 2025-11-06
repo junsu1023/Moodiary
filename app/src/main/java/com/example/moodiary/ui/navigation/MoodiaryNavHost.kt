@@ -21,6 +21,7 @@ import com.example.moodiary.ui.components.MoodTopBar
 import com.example.moodiary.ui.view.DiaryWriteScreen
 import com.example.moodiary.ui.view.EmotionHistoryScreen
 import com.example.moodiary.ui.view.HomeScreen
+import com.example.moodiary.ui.view.SettingsScreen
 
 @Composable
 fun MoodiaryNavHost(
@@ -71,7 +72,10 @@ fun MoodiaryNavHost(
             }
 
             composable(Screen.Settings.route) {
-
+                SettingsScreen(
+                    onBack = onBack,
+                    onLoggedOut = { navController.navigate(Screen.Login.route)}
+                )
             }
 
             composable(Screen.Login.route) {
