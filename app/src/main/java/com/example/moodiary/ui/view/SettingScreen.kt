@@ -1,17 +1,13 @@
 package com.example.moodiary.ui.view
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -71,32 +67,29 @@ fun SettingsScreen(
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
         // 비밀번호 변경
-        Button(
-            onClick = { viewModel.requestChangePassword() },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = stringResource(R.string.change_password))
-        }
+        SettingRow(
+            title = stringResource(R.string.change_password),
+            description = stringResource(R.string.change_password),
+            trailing = { }
+        )
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
         // 앱 정보
-        Button(
-            onClick = { viewModel.openAppInfo() },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = stringResource(R.string.app_info))
-        }
+        SettingRow(
+            title = stringResource(R.string.app_info),
+            description = stringResource(R.string.app_info),
+            trailing = { }
+        )
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
         // 로그아웃
-        Button(
-            onClick = { showLogoutDialog = true },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = stringResource(R.string.logout))
-        }
+        SettingRow(
+            title = stringResource(R.string.logout),
+            description = stringResource(R.string.logout),
+            trailing = { }
+        )
     }
 
     if (showLogoutDialog) {
