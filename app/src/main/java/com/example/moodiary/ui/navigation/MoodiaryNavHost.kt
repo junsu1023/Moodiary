@@ -96,14 +96,13 @@ fun MoodiaryNavHost(
 
             composable(Screen.Signup.route) {
                 SignUpScreen(
-                    onSignUp = { username, password ->
-                        navController.navigate(Screen.Login.route) {
+                    onSignUpComplete = {
+                        navController.navigate(Screen.Home.route) {
                             popUpTo(Screen.Signup.route) {
                                 inclusive = true
                             }
                         }
-                    },
-                    onCancel = { navController.popBackStack() }
+                    }
                 )
             }
         }

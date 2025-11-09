@@ -99,7 +99,7 @@ fun LoginScreen(
             enabled = username.isNotBlank() && password.isNotBlank(),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = stringResource(R.string.id))
+            Text(text = stringResource(R.string.login))
         }
 
         Spacer(modifier = Modifier.height(8.dp))
