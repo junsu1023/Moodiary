@@ -26,7 +26,9 @@
     <string name="confirm">확인</string>
     <string name="cancel">취소</string>
     <string name="id">아이디</string>
+    <string name="email">이메일</string>
     <string name="password">비밀번호</string>
+    <string name="confirm_password">비밀번호 확인</string>
     <string name="show_password">비밀번호 보기</string>
     <string name="hide_password">비밀번호 숨기기</string>
     <string name="login">로그인</string>
