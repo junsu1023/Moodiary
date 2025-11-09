@@ -14,10 +14,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -93,12 +91,12 @@ fun SignUpScreen(
             label = { Text(text = "비밀번호 확인") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
-            visualTransformation = if (confirmVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            visualTransformation = if(confirmVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
                 IconButton(onClick = { confirmVisible = !confirmVisible }) {
                     Icon(
-                        imageVector = if (confirmVisible) Icons.Filled.ArrowDropDown else Icons.Filled.KeyboardArrowUp,
-                        contentDescription = if (confirmVisible) stringResource(R.string.hide_password) else stringResource(R.string.show_password)
+                        imageVector = if(confirmVisible) Icons.Filled.ArrowDropDown else Icons.Filled.KeyboardArrowUp,
+                        contentDescription = if(confirmVisible) stringResource(R.string.hide_password) else stringResource(R.string.show_password)
                     )
                 }
             },
