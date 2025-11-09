@@ -23,6 +23,7 @@ import com.example.moodiary.ui.view.EmotionHistoryScreen
 import com.example.moodiary.ui.view.HomeScreen
 import com.example.moodiary.ui.view.LoginScreen
 import com.example.moodiary.ui.view.SettingsScreen
+import com.example.moodiary.ui.view.SignUpScreen
 
 @Composable
 fun MoodiaryNavHost(
@@ -94,7 +95,16 @@ fun MoodiaryNavHost(
             }
 
             composable(Screen.Signup.route) {
-
+                SignUpScreen(
+                    onSignUp = { username, password ->
+                        navController.navigate(Screen.Login.route) {
+                            popUpTo(Screen.Signup.route) {
+                                inclusive = true
+                            }
+                        }
+                    },
+                    onCancel = { navController.popBackStack() }
+                )
             }
         }
     }
