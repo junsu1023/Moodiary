@@ -21,6 +21,7 @@ import com.example.moodiary.ui.components.MoodTopBar
 import com.example.moodiary.ui.view.DiaryWriteScreen
 import com.example.moodiary.ui.view.EmotionHistoryScreen
 import com.example.moodiary.ui.view.HomeScreen
+import com.example.moodiary.ui.view.LoginScreen
 import com.example.moodiary.ui.view.SettingsScreen
 
 @Composable
@@ -54,7 +55,7 @@ fun MoodiaryNavHost(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.Login.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
@@ -79,7 +80,17 @@ fun MoodiaryNavHost(
             }
 
             composable(Screen.Login.route) {
-
+                LoginScreen(
+                    onLogin = { username, password ->
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(Screen.Login.route) {
+                                inclusive = true
+                            }
+                        }
+                    },
+                    onSignUp = { navController.navigate(Screen.Signup.route) },
+                    onForgotPassword = { }
+                )
             }
 
             composable(Screen.Signup.route) {
