@@ -1,11 +1,11 @@
 package com.example.data.di
 
 import com.example.data.datasource.AuthDataSource
+import com.example.data.datasource.SignUpDataSource
 import com.example.data.repository.AuthRepositoryImpl
 import com.example.data.repository.SignUpRepositoryImpl
 import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.SignUpRepository
-import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +18,8 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideSignUpRepository(
-        auth: FirebaseAuth
-    ): SignUpRepository = SignUpRepositoryImpl(auth)
+        signUpDataSource: SignUpDataSource
+    ): SignUpRepository = SignUpRepositoryImpl(signUpDataSource)
 
     @Provides
     @Singleton
