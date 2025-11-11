@@ -7,8 +7,8 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource
 ): AuthRepository {
-    override suspend fun login(email: String, password: String) {
-        authDataSource.login(email, password)
+    override suspend fun login(email: String, password: String): Result<Unit> {
+        return authDataSource.login(email, password)
     }
 
     override fun logout() {
