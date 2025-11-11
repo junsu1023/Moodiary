@@ -1,5 +1,7 @@
 package com.example.moodiary.ui.view
 
+import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,29 +23,47 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moodiary.R
+import com.example.moodiary.viewmodel.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     onLogin: (username: String, password: String) -> Unit,
     onSignUp: () -> Unit,
-    onForgotPassword: () -> Unit
+    onForgotPassword: () -> Unit,
+    loginViewModel: LoginViewModel = hiltViewModel()
 ) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
+    val state = loginViewModel.uiState
+    val context = LocalContext.current
+    val passwordVisible = remember { mutableStateOf(false) }
+
+    LaunchedEffect(state.errorMessage) {
+        state.errorMessage?.let { msg ->
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    LaunchedEffect(state.isLoggedIn) {
+        if(state.isLoggedIn) {
+            onLogin(state.email, state.password)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -52,8 +72,8 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Top
     ) {
         OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
+            value = state.email,
+            onValueChange = { loginViewModel.onEmailChange(it) },
             label = {
                 Text(text = stringResource(R.string.id))
             },
@@ -68,20 +88,22 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(12.dp))
 
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
+            value = state.password,
+            onValueChange = { loginViewModel.onPasswordChange(it) },
             label = {
                 Text(text = stringResource(R.string.password))
                     },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
-            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
-                IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(
-                        imageVector = if (passwordVisible) Icons.Filled.ArrowDropDown else Icons.Filled.KeyboardArrowUp,
-                        contentDescription = if (passwordVisible) stringResource(R.string.hide_password) else stringResource(R.string.show_password)
-                    )
+                if(state.password.isNotEmpty()) {
+                    IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
+                        Image(
+                            painter = if (passwordVisible.value) painterResource(R.drawable.hide) else painterResource(R.drawable.show),
+                            contentDescription = if (passwordVisible.value) stringResource(R.string.hide_password) else stringResource(R.string.show_password)
+                        )
+                    }
                 }
             },
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -94,9 +116,9 @@ fun LoginScreen(
 
         Button(
             onClick = {
-                onLogin(username.trim(), password)
+                loginViewModel.login()
             },
-            enabled = username.isNotBlank() && password.isNotBlank(),
+            enabled = state.email.isNotBlank() && state.password.isNotBlank(),
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = stringResource(R.string.login))
