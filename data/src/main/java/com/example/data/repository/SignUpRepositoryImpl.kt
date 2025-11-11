@@ -9,9 +9,8 @@ class SignUpRepositoryImpl @Inject constructor(
 ): SignUpRepository {
     override suspend fun signUp(
         email: String,
-        password: String,
-        confirmPassword: String
+        password: String
     ): Result<Unit> {
-        return signUpDataSource.signUp(email, password, confirmPassword)
+        return signUpDataSource.signUp(email, password)
     }
 }
