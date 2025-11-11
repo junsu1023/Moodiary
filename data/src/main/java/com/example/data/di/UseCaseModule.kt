@@ -1,8 +1,10 @@
 package com.example.data.di
 
 import com.example.domain.repository.AuthRepository
+import com.example.domain.repository.SignUpRepository
 import com.example.domain.usecase.LoginUseCase
 import com.example.domain.usecase.LogoutUseCase
+import com.example.domain.usecase.SignUpUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +21,14 @@ object UseCaseModule {
     ): LoginUseCase = LoginUseCase(authRepository)
 
     @Provides
+    @Singleton
     fun provideLogoutUseCase(
         authRepository: AuthRepository
     ): LogoutUseCase = LogoutUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun provideSignUpUseCase(
+        signUpRepository: SignUpRepository
+    ): SignUpUseCase = SignUpUseCase(signUpRepository)
 }
