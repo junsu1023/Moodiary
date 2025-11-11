@@ -1,35 +1,19 @@
 package com.example.data.datasource
 
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.suspendCancellableCoroutine
-import java.util.concurrent.atomic.AtomicBoolean
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
-import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.cancellation.CancellationException
 
 class AuthDataSource @Inject constructor(
     private val auth: FirebaseAuth
 ) {
-    suspend fun login(email: String, password: String) {
-        suspendCancellableCoroutine { continuation ->
-            val task = auth.signInWithEmailAndPassword(email, password)
-            val cancelled = AtomicBoolean(false)
-
-            val listener = OnCompleteListener<AuthResult> { result ->
-                if(result.isSuccessful) {
-                    continuation.resumeWith(Result.success(Unit))
-                } else {
-                    continuation.resumeWithException(result.exception ?: Exception("error"))
-                }
-            }
-
-            task.addOnCompleteListener(listener)
-
-            continuation.invokeOnCancellation {
-                cancelled.set(true)
-            }
-        }
+    suspend fun login(email: String, password: String): Result<Unit> = try {
+        auth.signInWithEmailAndPassword(email, password).await().user
+        Result.success(Unit)
+    } catch (e: Exception) {
+        if(e is CancellationException) throw e
+        Result.failure(e)
     }
 
     fun logout() {

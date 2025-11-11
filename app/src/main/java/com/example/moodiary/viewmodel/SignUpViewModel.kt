@@ -43,7 +43,7 @@ class SignUpViewModel @Inject constructor(
                 uiState = uiState.copy(isLoading = false, success = true, errorMessage = null)
                 onSuccess()
             } else {
-                uiState = uiState.copy(isLoading = false, errorMessage = result.exceptionOrNull()?.localizedMessage)
+                uiState = uiState.copy(isLoading = false, errorMessage = result.exceptionOrNull()?.message)
             }
         }
     }
