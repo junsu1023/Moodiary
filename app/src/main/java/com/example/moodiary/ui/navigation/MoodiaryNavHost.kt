@@ -27,7 +27,8 @@ import com.example.moodiary.ui.view.SignUpScreen
 
 @Composable
 fun MoodiaryNavHost(
-    navController: NavHostController
+    navController: NavHostController,
+    startDestination: String
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Home.route
@@ -56,7 +57,7 @@ fun MoodiaryNavHost(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Login.route,
+            startDestination = startDestination,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
