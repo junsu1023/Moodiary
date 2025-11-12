@@ -33,13 +33,21 @@ fun MoodiaryNavHost(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Home.route
     val onBack: () -> Unit = { navController.popBackStack() }
+    val showBars = when(currentRoute) {
+        Screen.Login.route, Screen.Signup.route, Screen.Write.route -> false
+        else -> true
+    }
 
     Scaffold(
         topBar = {
-            MoodTopBar(title = stringResource(R.string.app_name))
+            if(showBars) {
+                MoodTopBar(title = stringResource(R.string.app_name))
+            }
         },
         bottomBar = {
-            BottomBar(navController = navController)
+            if(showBars) {
+                BottomBar(navController = navController)
+            }
         },
         floatingActionButton = {
             if(currentRoute == Screen.Home.route) {
