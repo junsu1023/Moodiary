@@ -1,6 +1,7 @@
 package com.example.moodiary.ui.view
 
 import android.widget.Toast
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,6 +42,7 @@ fun DiaryWriteScreen(
                 onBack()
             }
             SaveState.ERROR -> {
+                println("test-kjs: uiSTate.errorMessage = ${uiState.errorMessage}")
                 Toast.makeText(context, uiState.errorMessage, Toast.LENGTH_SHORT).show()
             }
             else -> {

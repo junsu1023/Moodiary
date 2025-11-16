@@ -15,15 +15,14 @@ class DiaryRepositoryImpl @Inject constructor(
     override suspend fun saveDiary(content: String): Result<Unit> {
         return try {
             val uid = auth.currentUser?.uid ?: return Result.failure(Exception("로그인된 유저가 아닙니다."))
-            val (emotionScore, quote, musicUrl) = analysisDataSource.analyzeDiary(content)
-
+            val analysisResponse = analysisDataSource.getAnalysis(content).getOrThrow()
 
             val diaryDto = DiaryDto(
                 userId = uid,
                 content = content,
-                emotionScore = emotionScore,
-                quote = quote,
-                musicUrl = musicUrl
+                emotionScore = analysisResponse.emotionScore,
+                quote = analysisResponse.quote,
+                musicUrl = analysisResponse.musicUrl
             )
 
             diaryRemoteDataSource.saveDiary(diaryDto)
