@@ -1,8 +1,10 @@
 package com.example.data.di
 
 import com.example.data.datasource.AuthDataSource
+import com.example.data.datasource.DiaryRemoteDataSource
 import com.example.data.datasource.SignUpDataSource
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,4 +25,11 @@ object DataSourceModule {
     fun provideSignUpDataSource(
         auth: FirebaseAuth
     ): SignUpDataSource = SignUpDataSource(auth)
+
+    @Provides
+    @Singleton
+    fun provideDiaryRemoteDataSource(
+        firestore: FirebaseFirestore,
+        auth: FirebaseAuth
+    ): DiaryRemoteDataSource = DiaryRemoteDataSource(firestore, auth)
 }
