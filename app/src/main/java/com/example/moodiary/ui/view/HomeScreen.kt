@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.data.mapper.convertString
 import com.example.moodiary.R
 import com.example.moodiary.ui.components.EmotionCard
 import com.example.moodiary.ui.components.RecommendationCard
@@ -97,7 +98,7 @@ fun HomeScreen(
                         ) {
                             Column {
                                 Text(
-                                    text = item.timeStamp.toString(),
+                                    text = item.timeStamp?.convertString() ?: "error",
                                     style = MaterialTheme.typography.bodySmall
                                 )
 
