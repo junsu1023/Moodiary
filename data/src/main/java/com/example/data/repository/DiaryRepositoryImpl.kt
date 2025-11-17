@@ -3,8 +3,12 @@ package com.example.data.repository
 import com.example.data.datasource.AnalysisDataSource
 import com.example.data.datasource.DiaryRemoteDataSource
 import com.example.data.dto.DiaryDto
+import com.example.data.mapper.toModel
+import com.example.domain.model.DiaryModel
 import com.example.domain.repository.DiaryRepository
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DiaryRepositoryImpl @Inject constructor(
@@ -30,5 +34,10 @@ class DiaryRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    override fun observeCurrentUserDiaries(): Flow<List<DiaryModel>> {
+        val uid = auth.currentUser?.uid ?: throw IllegalStateException("로그인된 유저가 아닙니다.")
+        return diaryRemoteDataSource.observeUserDiaries(uid).map { it.map { dto -> dto.toModel() } }
     }
 }
