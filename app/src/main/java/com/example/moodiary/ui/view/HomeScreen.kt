@@ -18,27 +18,28 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moodiary.R
 import com.example.moodiary.ui.components.EmotionCard
 import com.example.moodiary.ui.components.RecommendationCard
-
-data class DiaryPreview(val id: String, val date: String, val snippet: String, val score: Int)
+import com.example.moodiary.viewmodel.HomeViewModel
 
 @Composable
-fun HomeScreen() {
-    val recent = listOf(
-        DiaryPreview("1", "2025-11-02", "오늘은 날씨가 좋아서 산책을 했어...", 78),
-        DiaryPreview("2", "2025-10-30", "새로운 프로젝트를 시작했고 긴장돼...", 52),
-        DiaryPreview("3", "2025-10-28", "친구와 맛있는 저녁을 먹었어.", 89)
-    )
+fun HomeScreen(
+    homeViewModel: HomeViewModel = hiltViewModel()
+) {
+    val diaries by homeViewModel.diaries.collectAsState()
+    val recent = diaries.take(3)
 
-    val todayDiaryExists = true
+    val todayDiaryExists = false
     val emotionScores = listOf(40f, 55f, 60f, 70f, 65f)
     val avgScore = if (emotionScores.isNotEmpty()) emotionScores.average().toFloat() else 0f
     val scrollState = rememberScrollState()
@@ -96,25 +97,25 @@ fun HomeScreen() {
                         ) {
                             Column {
                                 Text(
-                                    text = item.date,
+                                    text = item.timeStamp.toString(),
                                     style = MaterialTheme.typography.bodySmall
                                 )
 
                                 Spacer(modifier = Modifier.height(4.dp))
 
                                 Text(
-                                    text = item.snippet,
+                                    text = item.content,
                                     style = MaterialTheme.typography.bodyLarge
                                 )
                             }
 
                             // 우측 점수 배지
                             Text(
-                                text = "${item.score}%",
+                                text = "${item.emotionScore}%",
                                 color = Color.White,
                                 modifier = Modifier
                                     .background(
-                                        color = getScoreColor(item.score),
+                                        color = getScoreColor(item.emotionScore),
                                         shape = RoundedCornerShape(12.dp)
                                     )
                                     .padding(
