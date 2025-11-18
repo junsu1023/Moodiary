@@ -24,10 +24,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.data.mapper.convertString
+import com.example.domain.model.DiaryModel
 import com.example.moodiary.R
 import com.example.moodiary.ui.components.EmotionCard
 import com.example.moodiary.ui.components.RecommendationCard
@@ -37,12 +40,11 @@ import com.example.moodiary.viewmodel.HomeViewModel
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
-    val diaries by homeViewModel.diaries.collectAsState()
+    val uiState by homeViewModel.uiState.collectAsState()
+    val diaries = uiState.diaries
+    val todayDiaries = uiState.todayDiaries
     val recent = diaries.take(3)
-
-    val todayDiaryExists = false
-    val emotionScores = listOf(40f, 55f, 60f, 70f, 65f)
-    val avgScore = if (emotionScores.isNotEmpty()) emotionScores.average().toFloat() else 0f
+    val emotionScores = uiState.todayDiaries.map { it.emotionScore }.average()
     val scrollState = rememberScrollState()
 
     Surface(
@@ -56,13 +58,13 @@ fun HomeScreen(
         ) {
             EmotionCard(
                 title = stringResource(R.string.today_mood_summary),
-                score = avgScore.toInt()
+                score = emotionScores.toInt()
             )
 
-            if (todayDiaryExists) {
+            if (todayDiaries.isNotEmpty()) {
                 RecommendationCard(
-                    music = "Lo-fi Chillbeat - Calm Evening", // 임시
-                    quote = "작은 걸음들이 큰 길을 만든다."
+                    music = todayDiaries.map { it.musicUrl }.random(),
+                    quote = todayDiaries.map { it.quote }.random()
                 )
             } else {
                 RecommendationCard(
@@ -80,59 +82,68 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 for(item in recent.take(3)) {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable(
-                                interactionSource = remember { MutableInteractionSource() },
-                                indication = null,
-                                onClick = { /* TODO: 상세보기로 이동 */ }
-                            )
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(12.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Column {
-                                Text(
-                                    text = item.timeStamp?.convertString() ?: "error",
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = item.content,
-                                    style = MaterialTheme.typography.bodyLarge
-                                )
-                            }
-
-                            // 우측 점수 배지
-                            Text(
-                                text = "${item.emotionScore}%",
-                                color = Color.White,
-                                modifier = Modifier
-                                    .background(
-                                        color = getScoreColor(item.emotionScore),
-                                        shape = RoundedCornerShape(12.dp)
-                                    )
-                                    .padding(
-                                        horizontal = 10.dp,
-                                        vertical = 6.dp
-                                    )
-                            )
-                        }
-                    }
+                    RecentDiaryCard(item)
                 }
             }
         }
     }
 }
 
-// 점수에 따른 색상 매핑
+@Composable
+private fun RecentDiaryCard(item: DiaryModel) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = { /* TODO: 상세보기로 이동 */ }
+            )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(72.dp)
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 4.dp)
+            ) {
+                Text(
+                    text = item.timeStamp?.convertString() ?: stringResource(R.string.error),
+                    style = MaterialTheme.typography.bodySmall
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = item.content,
+                    style = MaterialTheme.typography.bodyLarge,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+
+            Text(
+                text = "${item.emotionScore}%",
+                color = colorResource(R.color.white),
+                modifier = Modifier
+                    .background(
+                        color = getScoreColor(item.emotionScore),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .padding(
+                        horizontal = 10.dp,
+                        vertical = 6.dp
+                    )
+            )
+        }
+    }
+}
+
 private fun getScoreColor(score: Int): Color {
     return when {
         score >= 80 -> Color(0xFF4CAF50) // green
