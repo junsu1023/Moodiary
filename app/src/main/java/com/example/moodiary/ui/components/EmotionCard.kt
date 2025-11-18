@@ -59,14 +59,12 @@ fun EmotionCard(title: String, score: Int) {
                 ) {
                     val diameter = size.minDimension
                     val inset = strokeWidth / 2f
-                    val arcStart = startAngle
-                    val arcSweep = sweepTotal
 
                     // 배경 아크 (회색)
                     drawArc(
                         color = moodNeutral,
-                        startAngle = arcStart,
-                        sweepAngle = arcSweep,
+                        startAngle = startAngle,
+                        sweepAngle = sweepTotal,
                         useCenter = false,
                         topLeft = Offset(inset, inset),
                         size = Size(diameter - strokeWidth, diameter - strokeWidth),
@@ -74,10 +72,10 @@ fun EmotionCard(title: String, score: Int) {
                     )
 
                     // 전경 아크 (점수 비율)
-                    val foregroundSweep = (clamped / 100f) * arcSweep
+                    val foregroundSweep = (clamped / 100f) * sweepTotal
                     drawArc(
                         color = moodPrimary,
-                        startAngle = arcStart,
+                        startAngle = startAngle,
                         sweepAngle = foregroundSweep,
                         useCenter = false,
                         topLeft = Offset(inset, inset),
@@ -86,12 +84,11 @@ fun EmotionCard(title: String, score: Int) {
                     )
                 }
 
-                // 중앙 텍스트 (숫자)
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "$clamped",
+                        text = if(clamped == 0) "?" else "$clamped",
                         style = MaterialTheme.typography.headlineSmall,
                         color = colorResource(id = R.color.moodPrimary)
                     )
