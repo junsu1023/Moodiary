@@ -16,13 +16,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    observeDiariesUseCase: ObserveDiariesUseCase
+    private val observeDiariesUseCase: ObserveDiariesUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     init {
+        observeDiaries()
+    }
+
+    private fun observeDiaries() {
         viewModelScope.launch {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    isLoading = true
+                )
+            }
+
             observeDiariesUseCase().collect { diaries ->
                 val today = Date(System.currentTimeMillis()).convertString()
                 val todayDiaries = diaries.filter { diary ->
@@ -32,7 +42,8 @@ class HomeViewModel @Inject constructor(
                 _uiState.update { currentState ->
                     currentState.copy(
                         diaries = diaries,
-                        todayDiaries = todayDiaries
+                        todayDiaries = todayDiaries,
+                        isLoading = false
                     )
                 }
             }

@@ -21,15 +21,15 @@ class AnalysisDataSource @Inject constructor(
                         You are a helpful assistant. Analyze the diary entry and provide a response in JSON format.
                         The JSON should contain:
                         1. "emotionScore": A positivity score from 0 to 100.
-                        2. "quote": A short, encouraging quote in Korean related to the diary content.
-                        3. "musicUrl": A YouTube video URL of a song that matches the mood of the diary.
+                        2. "quote": A short, encouraging message in Korean related to the diary content. The tone should be very casual, friendly, and supportive, like a best friend speaking (use informal language/Banmal).
+                        3. "musicUrl": A string formatted as "Song Title(YouTube URL)" of a song that matches the mood of the diary.
                         
                         Respond only with the JSON object, without any additional text.
                         Example format:
                         {
                           "emotionScore": 85,
-                          "quote": "작은 성공이 모여 큰 성공을 이룹니다.",
-                          "musicUrl": "https://www.youtube.com/watch?v=example"
+                          "quote": "오늘 하루 정말 고생 많았어! 맛있는 거 먹고 푹 쉬자.",
+                          "musicUrl": "Dynamite(https://www.youtube.com/watch?v=gdZLi9oWNZg)"
                         }
                         """.trimIndent()
                     ),

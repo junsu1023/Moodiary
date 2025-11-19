@@ -1,5 +1,6 @@
 package com.example.moodiary.ui.components
 
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,7 +24,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.moodiary.R
 
@@ -96,7 +96,7 @@ fun CardItem(
 
         Spacer(modifier = Modifier.size(8.dp))
 
-        Column {
+        Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.bodySmall,
@@ -106,7 +106,8 @@ fun CardItem(
             Text(
                 text = content,
                 style = MaterialTheme.typography.bodyLarge,
-                overflow = TextOverflow.Ellipsis
+                maxLines = 1,
+                modifier = Modifier.basicMarquee()
             )
         }
     }
