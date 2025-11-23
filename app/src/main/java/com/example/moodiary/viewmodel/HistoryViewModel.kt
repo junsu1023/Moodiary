@@ -2,7 +2,6 @@ package com.example.moodiary.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.mapper.convertString
 import com.example.domain.usecase.ObserveDiariesUseCase
 import com.example.moodiary.state.HistoryUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
