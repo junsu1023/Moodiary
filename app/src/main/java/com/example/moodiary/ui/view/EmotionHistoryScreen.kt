@@ -1,6 +1,8 @@
 package com.example.moodiary.ui.view
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,24 +19,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.moodiary.ui.components.EmotionFilterChip
 import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.data.mapper.convertString
 import com.example.moodiary.ui.components.EmotionCardDetailed
 import com.example.moodiary.R
-import com.example.moodiary.viewmodel.HomeViewModel
+import com.example.moodiary.viewmodel.HistoryViewModel
 
 @Composable
 fun EmotionHistoryScreen(
-    homeViewModel: HomeViewModel = hiltViewModel()
+    historyViewModel: HistoryViewModel = hiltViewModel()
 ) {
-    val uiState by homeViewModel.uiState.collectAsState()
+    val uiState by historyViewModel.uiState.collectAsState()
     val diaries = uiState.diaries
     val context = LocalContext.current
     val allEmotions = listOf(stringResource(R.string.all), stringResource(R.string.good), stringResource(R.string.soso), stringResource(R.string.warning), stringResource(R.string.bad))
-
-    var selectedFilter by remember { mutableStateOf(context.getString(R.string.all)) }
+//    var selectedFilter by remember { mutableStateOf(context.getString(R.string.all)) }
+    val selectedFilter = uiState.filter
     val listState = rememberLazyListState()
 
     LazyColumn(
@@ -58,7 +65,7 @@ fun EmotionHistoryScreen(
                     EmotionFilterChip(
                         label = emotion,
                         selected = selectedFilter == emotion,
-                        onClick = { selectedFilter = emotion }
+                        onClick = { historyViewModel.updateFilter(emotion) }
                     )
                 }
             }
@@ -76,10 +83,24 @@ fun EmotionHistoryScreen(
 
         if (filtered.isEmpty()) {
             item {
-                Text(
-                    text = stringResource(R.string.no_diary_filtered),
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        modifier = Modifier.size(64.dp),
+                        painter = painterResource(R.drawable.no_filter_image),
+                        contentDescription = ""
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Text(
+                        text = stringResource(R.string.no_diary_filtered),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         } else {
             items(filtered) { item ->
