@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.stringResource
@@ -29,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlin.math.min
 import com.example.moodiary.R
+import com.example.moodiary.ui.view.getScoreColor
 
 @Composable
 fun EmotionCardDetailed(
@@ -36,9 +36,10 @@ fun EmotionCardDetailed(
     score: Int,
     emotion: String,
     summary: String?,
-    modifier: Modifier = Modifier,
-    arcColor: Color = Color(0xFF4CAF50)
+    modifier: Modifier = Modifier
 ) {
+    val graphColor = getScoreColor(score)
+
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(10.dp)
@@ -63,7 +64,7 @@ fun EmotionCardDetailed(
                     val fullSweep = 240f
 
                     drawArc(
-                        color = arcColor.copy(alpha = 0.14f),
+                        color = graphColor.copy(alpha = 0.14f),
                         startAngle = startAngle,
                         sweepAngle = fullSweep,
                         useCenter = false,
@@ -74,7 +75,7 @@ fun EmotionCardDetailed(
 
                     val sweep = fullSweep * (score.coerceIn(0, 100) / 100f)
                     drawArc(
-                        color = arcColor,
+                        color = graphColor,
                         startAngle = startAngle,
                         sweepAngle = sweep,
                         useCenter = false,
@@ -108,14 +109,7 @@ fun EmotionCardDetailed(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = when (emotion) {
-                            stringResource(R.string.happy) -> Color(0xFFDFF7E7)
-                            stringResource(R.string.sad) -> Color(0xFFEAF2FF)
-                            stringResource(R.string.angry) -> Color(0xFFFFECE6)
-                            stringResource(R.string.anxious) -> Color(0xFFFFF8E1)
-                            stringResource(R.string.calm) -> Color(0xFFF2F7F1)
-                            else -> Color(0xFFF0F0F0)
-                        }
+                        color = getScoreColor(score)
                     ) {
                         Text(
                             text = emotion,

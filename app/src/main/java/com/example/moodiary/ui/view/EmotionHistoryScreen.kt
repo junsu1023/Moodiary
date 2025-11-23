@@ -17,27 +17,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.moodiary.ui.components.EmotionFilterChip
 import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.data.mapper.convertString
 import com.example.moodiary.ui.components.EmotionCardDetailed
 import com.example.moodiary.R
-
-data class EmotionEntry(val date: String, val score: Int, val emotion: String, val summary: String)
+import com.example.moodiary.viewmodel.HomeViewModel
 
 @Composable
-fun EmotionHistoryScreen() {
-    val allEmotions = listOf("모두", "행복", "슬픔", "분노", "불안", "평온")
-    val entries = remember {
-        listOf(
-            EmotionEntry("2025-11-02", 78, "행복", "오늘은 친구와 산책하며 기분이 좋았다. 작은 성취를 느꼈다."),
-            EmotionEntry("2025-11-01", 45, "슬픔", "오래된 기억이 떠올라 울적했다. 혼자서 정리하는 시간이 필요했다."),
-            EmotionEntry("2025-10-30", 52, "불안", "내일 발표 때문에 잠을 설칠 정도로 긴장했다."),
-            EmotionEntry("2025-10-28", 89, "행복", "오랫동안 기다리던 일이 잘 풀려서 매우 기뻤다."),
-            EmotionEntry("2025-10-25", 30, "분노", "사소한 오해로 감정이 격해졌다. 바로 풀지 못해 답답했다."),
-            EmotionEntry("2025-10-20", 66, "평온", "차분한 하루. 조용히 책을 읽으며 마음이 안정되었다.")
-        )
-    }
+fun EmotionHistoryScreen(
+    homeViewModel: HomeViewModel = hiltViewModel()
+) {
+    val uiState by homeViewModel.uiState.collectAsState()
+    val diaries = uiState.diaries
+    val context = LocalContext.current
+    val allEmotions = listOf(stringResource(R.string.all), stringResource(R.string.good), stringResource(R.string.soso), stringResource(R.string.warning), stringResource(R.string.bad))
 
-    var selectedFilter by remember { mutableStateOf("모두") }
+    var selectedFilter by remember { mutableStateOf(context.getString(R.string.all)) }
     val listState = rememberLazyListState()
 
     LazyColumn(
@@ -69,7 +66,13 @@ fun EmotionHistoryScreen() {
             Spacer(modifier = Modifier.height(8.dp))
         }
 
-        val filtered = if (selectedFilter == "모두") entries else entries.filter { it.emotion == selectedFilter }
+        val filtered = when(selectedFilter) {
+            context.getString(R.string.all) -> diaries
+            context.getString(R.string.good) -> diaries.filter { it.emotionScore >= 80 }
+            context.getString(R.string.soso) -> diaries.filter { it.emotionScore in 60 until 80 }
+            context.getString(R.string.warning) -> diaries.filter { it.emotionScore in 40 until 60}
+            else -> diaries.filter { it.emotionScore < 40 }
+        }
 
         if (filtered.isEmpty()) {
             item {
@@ -81,13 +84,23 @@ fun EmotionHistoryScreen() {
         } else {
             items(filtered) { item ->
                 EmotionCardDetailed(
-                    title = item.date,
-                    score = item.score,
-                    emotion = item.emotion,
-                    summary = item.summary,
+                    title = item.timeStamp!!.convertString(),
+                    score = item.emotionScore,
+                    emotion = item.emotionScore.getEmotion(),
+                    summary = item.content,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
         }
+    }
+}
+
+@Composable
+fun Int.getEmotion(): String {
+    return when(this) {
+        in 80 .. 100 -> stringResource(R.string.good)
+        in 60 until 80 -> stringResource(R.string.soso)
+        in 40 until 60 -> stringResource(R.string.warning)
+        else -> stringResource(R.string.bad)
     }
 }

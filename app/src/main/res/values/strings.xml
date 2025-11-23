@@ -36,4 +36,9 @@
     <string name="find_password">비밀번호 찾기</string>
     <string name="save_diary_success">일기 저장 성공</string>
     <string name="error">에러</string>
+    <string name="all">모두</string>
+    <string name="good">좋음</string>
+    <string name="soso">평범</string>
+    <string name="warning">경고</string>
+    <string name="bad">나쁨</string>
 </resources>
