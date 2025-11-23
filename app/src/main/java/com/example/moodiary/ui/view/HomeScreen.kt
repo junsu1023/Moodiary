@@ -149,7 +149,7 @@ private fun RecentDiaryCard(item: DiaryModel) {
     }
 }
 
-private fun getScoreColor(score: Int): Color {
+fun getScoreColor(score: Int): Color {
     return when {
         score >= 80 -> Color(0xFF4CAF50) // green
         score >= 60 -> Color(0xFFFFC107) // amber
