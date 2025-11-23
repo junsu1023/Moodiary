@@ -51,7 +51,6 @@ fun EmotionCardDetailed(
                 .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // 왼쪽: 그래프 영역
             Box(
                 modifier = Modifier.width(92.dp),
                 contentAlignment = Alignment.Center
@@ -91,7 +90,6 @@ fun EmotionCardDetailed(
                 )
             }
 
-            // 오른쪽: 텍스트 블록
             Column(
                 modifier = Modifier
                     .padding(start = 12.dp)
