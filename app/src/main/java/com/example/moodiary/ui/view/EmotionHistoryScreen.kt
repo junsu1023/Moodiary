@@ -40,7 +40,6 @@ fun EmotionHistoryScreen(
     val diaries = uiState.diaries
     val context = LocalContext.current
     val allEmotions = listOf(stringResource(R.string.all), stringResource(R.string.good), stringResource(R.string.soso), stringResource(R.string.warning), stringResource(R.string.bad))
-//    var selectedFilter by remember { mutableStateOf(context.getString(R.string.all)) }
     val selectedFilter = uiState.filter
     val listState = rememberLazyListState()
 
