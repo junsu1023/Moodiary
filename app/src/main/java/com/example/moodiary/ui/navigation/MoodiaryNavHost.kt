@@ -84,14 +84,13 @@ fun MoodiaryNavHost(
 
             composable(Screen.Settings.route) {
                 SettingsScreen(
-                    onBack = onBack,
                     onLoggedOut = { navController.navigate(Screen.Login.route)}
                 )
             }
 
             composable(Screen.Login.route) {
                 LoginScreen(
-                    onLogin = { username, password ->
+                    onLogin = {
                         navController.navigate(Screen.Home.route) {
                             popUpTo(Screen.Login.route) {
                                 inclusive = true
