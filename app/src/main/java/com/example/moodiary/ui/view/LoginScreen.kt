@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -35,10 +34,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moodiary.R
 import com.example.moodiary.viewmodel.LoginViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onLogin: (username: String, password: String) -> Unit,
+    onLogin: () -> Unit,
     onSignUp: () -> Unit,
     onForgotPassword: () -> Unit,
     loginViewModel: LoginViewModel = hiltViewModel()
@@ -54,8 +52,8 @@ fun LoginScreen(
     }
 
     LaunchedEffect(state.isLoggedIn) {
-        if(state.isLoggedIn) {
-            onLogin(state.email, state.password)
+        if (state.isLoggedIn) {
+            onLogin()
         }
     }
 
@@ -91,7 +89,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
-                if(state.password.isNotEmpty()) {
+                if (state.password.isNotEmpty()) {
                     IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
                         Image(
                             painter = if (passwordVisible.value) painterResource(R.drawable.hide) else painterResource(R.drawable.show),
@@ -123,7 +121,7 @@ fun LoginScreen(
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
-        ){
+        ) {
             TextButton(
                 onClick = onSignUp
             ) {
