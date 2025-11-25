@@ -8,4 +8,6 @@ interface AuthRepository {
     fun isLoggedIn(): Boolean
 
     fun getCurrentUserId(): String?
+
+    fun changePassword(newPassword: String): Result<Unit>
 }

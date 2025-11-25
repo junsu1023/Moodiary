@@ -1,36 +1,53 @@
 package com.example.moodiary.ui.view
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moodiary.R
-import com.example.moodiary.viewmodel.SettingsViewModel
+import com.example.moodiary.state.DialogKind
+import com.example.moodiary.ui.components.SettingDialog
+import com.example.moodiary.viewmodel.SettingViewModel
 
 @Composable
-
 fun SettingsScreen(
-    viewModel: SettingsViewModel = hiltViewModel(),
+    viewModel: SettingViewModel = hiltViewModel(),
     onLoggedOut: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val dialogState by viewModel.changePasswordDialogState.collectAsState()
     val showLogoutDialog = uiState.isShowLogoutDialog
+    val context = LocalContext.current
+
+    LaunchedEffect(dialogState.isChangePasswordSuccess) {
+        if(dialogState.isChangePasswordSuccess) {
+            viewModel.logout(onLoggedOut)
+            Toast.makeText(context, R.string.relogin, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    LaunchedEffect(uiState.errorMessage) {
+        uiState.errorMessage?.let { msg ->
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     Column(
         modifier = Modifier.padding(16.dp)
@@ -67,7 +84,12 @@ fun SettingsScreen(
             title = stringResource(R.string.change_password),
             description = stringResource(R.string.change_password),
             trailing = { },
-            onClick = { }
+            onClick = {
+                viewModel.setDialogState(
+                    isShow = true,
+                    kind = DialogKind.ChangePassword
+                )
+            }
         )
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
@@ -76,35 +98,28 @@ fun SettingsScreen(
             title = stringResource(R.string.logout),
             description = stringResource(R.string.logout),
             trailing = { },
-            onClick = { viewModel.setDialogState(true) }
+            onClick = {
+                viewModel.setDialogState(
+                    isShow = true,
+                    kind = DialogKind.Logout
+                )
+            }
         )
     }
 
     if (showLogoutDialog) {
-        AlertDialog(
-            onDismissRequest = { viewModel.setDialogState(false) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        viewModel.setDialogState(false)
-                        viewModel.logout(onLoggedOut)
-                    }
-                ) {
-                    Text(text = stringResource(R.string.confirm))
+        SettingDialog(
+            onConfirm = {
+                viewModel.setDialogState(false)
+
+                when(uiState.dialogKind) {
+                    is DialogKind.Logout -> viewModel.logout(onLoggedOut)
+                    is DialogKind.ChangePassword -> viewModel.requestChangePassword()
+                    is DialogKind.NoShow -> {}
                 }
             },
-            dismissButton = {
-                TextButton(
-                    onClick = { viewModel.setDialogState(false) }
-                ) {
-                    Text(text = stringResource(R.string.cancel))
-                }
-            },
-            title = {
-                Text(text = stringResource(R.string.logout))
-            },
-            text = {
-                Text(text = stringResource(R.string.logout_dialog_content))
+            onDismiss = {
+                viewModel.setDialogState(false)
             }
         )
     }

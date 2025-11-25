@@ -2,7 +2,10 @@ package com.example.moodiary.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.usecase.ChangePasswordUseCase
 import com.example.domain.usecase.LogoutUseCase
+import com.example.moodiary.state.ChangePasswordState
+import com.example.moodiary.state.DialogKind
 import com.example.moodiary.state.SettingUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,11 +16,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(
-    private val logoutUseCase: LogoutUseCase
+class SettingViewModel @Inject constructor(
+    private val logoutUseCase: LogoutUseCase,
+    private val changePasswordUseCase: ChangePasswordUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SettingUiState())
     val uiState: StateFlow<SettingUiState> get() = _uiState.asStateFlow()
+
+    private val _changePasswordDialogState = MutableStateFlow(ChangePasswordState())
+    val changePasswordDialogState: StateFlow<ChangePasswordState> get() = _changePasswordDialogState.asStateFlow()
 
     fun toggleNotifications() {
         _uiState.update { currentState ->
@@ -42,15 +49,65 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun setDialogState(isShow: Boolean) {
+    fun setDialogState(isShow: Boolean, kind: DialogKind? = null) {
         _uiState.update { currentState ->
             currentState.copy(
-                isShowLogoutDialog = isShow
+                isShowLogoutDialog = isShow,
+                dialogKind = kind ?: DialogKind.NoShow
             )
         }
     }
 
     fun requestChangePassword() {
-        // 비밀번호 변경 화면으로 네비게이션 처리
+        val curPassword = changePasswordDialogState.value.curPassword
+        val newPassword = changePasswordDialogState.value.newPassword
+        val confirmNewPassword = changePasswordDialogState.value.confirmNewPassword
+
+        viewModelScope.launch {
+            val result = changePasswordUseCase(curPassword, newPassword, confirmNewPassword)
+
+            if(result.isSuccess) {
+                println("test-kjs: success")
+                _changePasswordDialogState.update { currentState ->
+                    currentState.copy(
+                        curPassword = "",
+                        newPassword = "",
+                        confirmNewPassword = "",
+                        isChangePasswordSuccess = true
+                    )
+                }
+            } else {
+                println("test-kjs: failed: message= ${result.exceptionOrNull()?.message}")
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        errorMessage = result.exceptionOrNull()?.message
+                    )
+                }
+            }
+        }
+    }
+
+    fun onChangeCurPassword(newValue: String) {
+        _changePasswordDialogState.update { currentState ->
+            currentState.copy(
+                curPassword = newValue
+            )
+        }
+    }
+
+    fun onChangeNewPassword(newValue: String) {
+        _changePasswordDialogState.update { currentState ->
+            currentState.copy(
+                newPassword = newValue
+            )
+        }
+    }
+
+    fun onChangeConfirmNewPassword(newValue: String) {
+        _changePasswordDialogState.update { currentState ->
+            currentState.copy(
+                confirmNewPassword = newValue
+            )
+        }
     }
 }
