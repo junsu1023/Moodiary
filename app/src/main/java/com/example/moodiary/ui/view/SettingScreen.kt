@@ -1,5 +1,6 @@
 package com.example.moodiary.ui.view
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -11,10 +12,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,6 +34,20 @@ fun SettingsScreen(
     val uiState by viewModel.uiState.collectAsState()
     val dialogState by viewModel.changePasswordDialogState.collectAsState()
     val showLogoutDialog = uiState.isShowLogoutDialog
+    val context = LocalContext.current
+
+    LaunchedEffect(dialogState.isChangePasswordSuccess) {
+        if(dialogState.isChangePasswordSuccess) {
+            viewModel.logout(onLoggedOut)
+            Toast.makeText(context, R.string.relogin, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    LaunchedEffect(uiState.errorMessage) {
+        uiState.errorMessage?.let { msg ->
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     Column(
         modifier = Modifier.padding(16.dp)
