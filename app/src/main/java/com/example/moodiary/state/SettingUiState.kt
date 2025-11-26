@@ -5,14 +5,14 @@ data class SettingUiState(
     val darkModeEnabled: Boolean = false,
     val isShowLogoutDialog: Boolean = false,
     val dialogKind: DialogKind = DialogKind.NoShow,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val goLoginScreen: Boolean = false
 )
 
 data class ChangePasswordState(
     val curPassword: String = "",
     val newPassword: String = "",
-    val confirmNewPassword: String = "",
-    val isChangePasswordSuccess: Boolean = false
+    val confirmNewPassword: String = ""
 )
 
 sealed class DialogKind {

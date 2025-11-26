@@ -33,4 +33,12 @@ class AuthDataSource @Inject constructor(
     } catch (e: Exception) {
         Result.failure(e)
     }
+
+    fun signOut(): Result<Unit> = try {
+        val user = auth.currentUser ?: throw IllegalStateException("로그인된 회원이 아닙니다.")
+        user.delete()
+        Result.success(Unit)
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
 }

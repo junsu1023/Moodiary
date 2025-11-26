@@ -16,4 +16,6 @@ class AuthRepositoryImpl @Inject constructor(
     override fun getCurrentUserId(): String? = authDataSource.getCurrentUserId()
 
     override fun changePassword(newPassword: String): Result<Unit> = authDataSource.changePassword(newPassword)
+
+    override fun signOut(): Result<Unit> = authDataSource.signOut()
 }
