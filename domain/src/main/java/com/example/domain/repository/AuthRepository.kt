@@ -10,4 +10,6 @@ interface AuthRepository {
     fun getCurrentUserId(): String?
 
     fun changePassword(newPassword: String): Result<Unit>
+
+    fun signOut(): Result<Unit>
 }
