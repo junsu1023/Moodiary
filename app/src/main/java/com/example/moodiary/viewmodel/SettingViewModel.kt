@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecase.ChangePasswordUseCase
 import com.example.domain.usecase.LogoutUseCase
+import com.example.domain.usecase.SignOutUseCase
 import com.example.moodiary.state.ChangePasswordState
 import com.example.moodiary.state.DialogKind
 import com.example.moodiary.state.SettingUiState
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
-    private val changePasswordUseCase: ChangePasswordUseCase
+    private val changePasswordUseCase: ChangePasswordUseCase,
+    private val signOutUseCase: SignOutUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SettingUiState())
     val uiState: StateFlow<SettingUiState> get() = _uiState.asStateFlow()
@@ -67,17 +69,18 @@ class SettingViewModel @Inject constructor(
             val result = changePasswordUseCase(curPassword, newPassword, confirmNewPassword)
 
             if(result.isSuccess) {
-                println("test-kjs: success")
                 _changePasswordDialogState.update { currentState ->
                     currentState.copy(
                         curPassword = "",
                         newPassword = "",
                         confirmNewPassword = "",
-                        isChangePasswordSuccess = true
                     )
                 }
+
+                _uiState.update { currentState ->
+                    currentState.copy(goLoginScreen = true)
+                }
             } else {
-                println("test-kjs: failed: message= ${result.exceptionOrNull()?.message}")
                 _uiState.update { currentState ->
                     currentState.copy(
                         errorMessage = result.exceptionOrNull()?.message
@@ -108,6 +111,24 @@ class SettingViewModel @Inject constructor(
             currentState.copy(
                 confirmNewPassword = newValue
             )
+        }
+    }
+
+    fun signOut() {
+        viewModelScope.launch {
+            val result = signOutUseCase()
+
+            if(result.isSuccess) {
+                _uiState.update { currentState ->
+                    currentState.copy(goLoginScreen = true)
+                }
+            } else {
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        errorMessage = result.exceptionOrNull()?.message
+                    )
+                }
+            }
         }
     }
 }

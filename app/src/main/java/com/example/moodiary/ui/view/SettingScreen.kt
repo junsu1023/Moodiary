@@ -1,3 +1,4 @@
+
 package com.example.moodiary.ui.view
 
 import android.widget.Toast
@@ -32,12 +33,11 @@ fun SettingsScreen(
     onLoggedOut: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val dialogState by viewModel.changePasswordDialogState.collectAsState()
     val showLogoutDialog = uiState.isShowLogoutDialog
     val context = LocalContext.current
 
-    LaunchedEffect(dialogState.isChangePasswordSuccess) {
-        if(dialogState.isChangePasswordSuccess) {
+    LaunchedEffect(uiState.goLoginScreen) {
+        if(uiState.goLoginScreen) {
             viewModel.logout(onLoggedOut)
             Toast.makeText(context, R.string.relogin, Toast.LENGTH_SHORT).show()
         }
@@ -103,6 +103,17 @@ fun SettingsScreen(
                     isShow = true,
                     kind = DialogKind.Logout
                 )
+            }
+        )
+
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+        SettingRow(
+            title = stringResource(R.string.sign_out),
+            description = stringResource(R.string.sign_out),
+            trailing = { },
+            onClick = {
+                viewModel.signOut()
             }
         )
     }
