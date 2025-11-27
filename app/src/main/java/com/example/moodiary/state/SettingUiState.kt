@@ -2,7 +2,7 @@ package com.example.moodiary.state
 
 data class SettingUiState(
     val notificationsEnabled: Boolean = true,
-    val darkModeEnabled: Boolean = false,
+    val isDarkMode: Boolean = false,
     val isShowLogoutDialog: Boolean = false,
     val dialogKind: DialogKind = DialogKind.NoShow,
     val errorMessage: String? = null,
