@@ -71,7 +71,7 @@ fun SettingsScreen(
             description = stringResource(R.string.dark_mode),
             trailing = {
                 Switch(
-                    checked = uiState.darkModeEnabled,
+                    checked = uiState.isDarkMode,
                     onCheckedChange = { viewModel.toggleDarkMode() }
                 )
             },

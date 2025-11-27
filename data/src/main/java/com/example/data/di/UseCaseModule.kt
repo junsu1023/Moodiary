@@ -2,8 +2,11 @@ package com.example.data.di
 
 import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.DiaryRepository
+import com.example.domain.repository.ModeRepository
 import com.example.domain.repository.SignUpRepository
 import com.example.domain.usecase.ChangePasswordUseCase
+import com.example.domain.usecase.GetDarkModeUseCase
+import com.example.domain.usecase.SetDarkModeUseCase
 import com.example.domain.usecase.LoginUseCase
 import com.example.domain.usecase.LogoutUseCase
 import com.example.domain.usecase.ObserveDiariesUseCase
@@ -60,4 +63,16 @@ object UseCaseModule {
     fun provideSignOutUseCase(
         authRepository: AuthRepository
     ): SignOutUseCase = SignOutUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetDarkModeUseCase(
+        modeRepository: ModeRepository
+    ): SetDarkModeUseCase = SetDarkModeUseCase(modeRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetDarkModeUseCase(
+        modeRepository: ModeRepository
+    ): GetDarkModeUseCase = GetDarkModeUseCase(modeRepository)
 }

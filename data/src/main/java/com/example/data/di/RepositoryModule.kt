@@ -4,15 +4,16 @@ import com.example.data.datasource.AnalysisDataSource
 import com.example.data.datasource.AuthDataSource
 import com.example.data.datasource.DiaryRemoteDataSource
 import com.example.data.datasource.SignUpDataSource
+import com.example.data.datasource.datastore.DarkModeDataStore
 import com.example.data.repository.AuthRepositoryImpl
 import com.example.data.repository.DiaryRepositoryImpl
+import com.example.data.repository.ModeRepositoryImpl
 import com.example.data.repository.SignUpRepositoryImpl
 import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.DiaryRepository
+import com.example.domain.repository.ModeRepository
 import com.example.domain.repository.SignUpRepository
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,4 +46,10 @@ object RepositoryModule {
         diaryRemoteDataSource,
         auth
     )
+
+    @Provides
+    @Singleton
+    fun provideModeRepository(
+        darkModeDataStore: DarkModeDataStore
+    ): ModeRepository = ModeRepositoryImpl(darkModeDataStore)
 }

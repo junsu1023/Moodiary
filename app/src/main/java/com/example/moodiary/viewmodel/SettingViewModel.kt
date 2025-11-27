@@ -3,6 +3,8 @@ package com.example.moodiary.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecase.ChangePasswordUseCase
+import com.example.domain.usecase.GetDarkModeUseCase
+import com.example.domain.usecase.SetDarkModeUseCase
 import com.example.domain.usecase.LogoutUseCase
 import com.example.domain.usecase.SignOutUseCase
 import com.example.moodiary.state.ChangePasswordState
@@ -20,13 +22,25 @@ import javax.inject.Inject
 class SettingViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
     private val changePasswordUseCase: ChangePasswordUseCase,
-    private val signOutUseCase: SignOutUseCase
+    private val signOutUseCase: SignOutUseCase,
+    private val setDarkModeUseCase: SetDarkModeUseCase,
+    private val getDarkModeUseCase: GetDarkModeUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SettingUiState())
     val uiState: StateFlow<SettingUiState> get() = _uiState.asStateFlow()
 
     private val _changePasswordDialogState = MutableStateFlow(ChangePasswordState())
     val changePasswordDialogState: StateFlow<ChangePasswordState> get() = _changePasswordDialogState.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            getDarkModeUseCase().collect { isDarkMode ->
+                _uiState.update { currentState ->
+                    currentState.copy(isDarkMode = isDarkMode)
+                }
+            }
+        }
+    }
 
     fun toggleNotifications() {
         _uiState.update { currentState ->
@@ -37,10 +51,16 @@ class SettingViewModel @Inject constructor(
     }
 
     fun toggleDarkMode() {
-        _uiState.update { currentState ->
-            currentState.copy(
-                darkModeEnabled = !uiState.value.darkModeEnabled
-            )
+        viewModelScope.launch {
+            val setMode = !uiState.value.isDarkMode
+
+            setDarkModeUseCase(setMode)
+
+            _uiState.update { currentState ->
+                currentState.copy(
+                    isDarkMode = setMode
+                )
+            }
         }
     }
 
