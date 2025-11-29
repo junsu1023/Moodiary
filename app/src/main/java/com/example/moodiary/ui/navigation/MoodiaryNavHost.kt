@@ -61,7 +61,8 @@ fun MoodiaryNavHost(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Edit,
-                        contentDescription = "Write Diary"
+                        contentDescription = "Write Diary",
+                        tint = MoodiaryCustomTheme.colors.iconColor1
                     )
                 }
             }

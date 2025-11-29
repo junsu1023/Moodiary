@@ -14,8 +14,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -55,7 +53,10 @@ fun BottomBar(navController: NavController) {
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedTextColor = MoodiaryCustomTheme.colors.fontColor,
-                    unselectedIconColor = MoodiaryCustomTheme.colors.fontColor3
+                    unselectedIconColor = MoodiaryCustomTheme.colors.fontColor3,
+                    indicatorColor = MoodiaryCustomTheme.colors.indicationColor1,
+                    selectedIconColor = MoodiaryCustomTheme.colors.iconColor1,
+                    unselectedTextColor = MoodiaryCustomTheme.colors.iconColor2
                 )
             )
         }

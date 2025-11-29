@@ -28,7 +28,7 @@ fun MoodTopBar(title: String) {
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.align(Alignment.CenterStart),
-                    color = MoodiaryCustomTheme.colors.fontColor
+                    color = MoodiaryCustomTheme.colors.fontColor2
                 )
             }
         },

@@ -4,9 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.height
@@ -14,6 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
@@ -78,7 +81,8 @@ fun HomeScreen(
 
             Text(
                 text = stringResource(R.string.recent_diary),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                color = MoodiaryCustomTheme.colors.fontColor
             )
 
             Column(
@@ -90,7 +94,12 @@ fun HomeScreen(
             }
 
             if(uiState.isLoading) {
-                CircularProgressIndicator()
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
             }
         }
     }
@@ -105,7 +114,10 @@ private fun RecentDiaryCard(item: DiaryModel) {
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
                 onClick = { /* TODO: 상세보기로 이동 */ }
-            )
+            ),
+        colors = CardDefaults.cardColors(
+            containerColor = MoodiaryCustomTheme.colors.cardColor
+        )
     ) {
         Row(
             modifier = Modifier
@@ -122,7 +134,8 @@ private fun RecentDiaryCard(item: DiaryModel) {
             ) {
                 Text(
                     text = item.timeStamp?.convertString() ?: stringResource(R.string.error),
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MoodiaryCustomTheme.colors.fontColor3
                 )
 
                 Spacer(modifier = Modifier.height(4.dp))
@@ -130,13 +143,14 @@ private fun RecentDiaryCard(item: DiaryModel) {
                 Text(
                     text = item.content,
                     style = MaterialTheme.typography.bodyLarge,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    color = MoodiaryCustomTheme.colors.fontColor
                 )
             }
 
             Text(
                 text = "${item.emotionScore}%",
-                color = colorResource(R.color.white),
+                color = MoodiaryCustomTheme.colors.fontColor5,
                 modifier = Modifier
                     .background(
                         color = getScoreColor(item.emotionScore),
@@ -151,11 +165,12 @@ private fun RecentDiaryCard(item: DiaryModel) {
     }
 }
 
+@Composable
 fun getScoreColor(score: Int): Color {
     return when {
-        score >= 80 -> Color(0xFF4CAF50) // green
-        score >= 60 -> Color(0xFFFFC107) // amber
-        score >= 40 -> Color(0xFFFF9800) // orange
-        else -> Color(0xFFF44336)        // red
+        score >= 80 -> MoodiaryCustomTheme.colors.goodEmotionColor
+        score >= 60 -> MoodiaryCustomTheme.colors.soSoEmotionColor
+        score >= 40 -> MoodiaryCustomTheme.colors.warningEmotionColor
+        else -> MoodiaryCustomTheme.colors.badEmotionColor
     }
 }

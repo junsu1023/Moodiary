@@ -6,18 +6,23 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 
 val lightColors = MoodiaryColors(
-    background = Color(0x99EAF3FF),
+    background = Color(0xFFf8f7fe),
     fontColor = Color(0xFF1E1E1E),
     fontColor2 = Color(0xFF6C5CE7),
     fontColor3 = Color(0xFF8E8E8E),
-    cardColor = Color(0xFFE2E2EC),
+    fontColor4 = Color(0xFF95A5A6),
+    fontColor5 = Color(0xFFFFFFFF),
+    cardColor = Color(0xFFdddee9),
     buttonColor = Color(0xFF5E73AA),
-    goodEmotionColor = Color(0xFF98FB98),
-    soSoEmotionColor = Color(0x99FFD700),
-    warningEmotionColor = Color(0xFFFF7F50),
-    badEmotionColor = Color(0xFFDC143C),
+    goodEmotionColor = Color(0xFF4CAF50),
+    soSoEmotionColor = Color(0xFFFFC107),
+    warningEmotionColor = Color(0xFFFF9800),
+    badEmotionColor = Color(0xFFF44336),
     activeStrokeColor = Color(0xFF6C5CE7),
-    inactiveStrokeColor = Color(0xFFC8D6EA)
+    inactiveStrokeColor = Color(0xFF95A5A6),
+    iconColor1 = Color(0xFFFFFFFF),
+    iconColor2 = Color(0xFFE2E2EC),
+    indicationColor1 = Color(0xFF62697C)
 )
 
 val darkColors = MoodiaryColors(
@@ -25,14 +30,19 @@ val darkColors = MoodiaryColors(
     fontColor = Color(0xFFE2E2EC),
     fontColor2 = Color(0xFF6C5CE7),
     fontColor3 = Color(0xFF8E8E8E),
+    fontColor4 = Color(0xFF95A5A6),
+    fontColor5 = Color(0xFFFFFFFF),
     cardColor = Color(0xFFE2E2EC),
     buttonColor = Color(0xFF5E73AA),
-    goodEmotionColor = Color(0xFF98FB98),
-    soSoEmotionColor = Color(0x99FFD700),
-    warningEmotionColor = Color(0xFFFF7F50),
-    badEmotionColor = Color(0xFFDC143C),
+    goodEmotionColor = Color(0xFF4CAF50),
+    soSoEmotionColor = Color(0xFFFFC107),
+    warningEmotionColor = Color(0xFFFF9800),
+    badEmotionColor = Color(0xFFF44336),
     activeStrokeColor = Color(0xFF6C5CE7),
-    inactiveStrokeColor = Color(0xFFC8D6EA)
+    inactiveStrokeColor = Color(0xFF95A5A6),
+    iconColor1 = Color(0xFFFFFFFF),
+    iconColor2 = Color(0xFFE2E2EC),
+    indicationColor1 = Color(0xFF62697C)
 )
 
 class MoodiaryColors(
@@ -40,6 +50,8 @@ class MoodiaryColors(
     fontColor: Color,
     fontColor2: Color,
     fontColor3: Color,
+    fontColor4: Color,
+    fontColor5: Color,
     cardColor: Color,
     buttonColor: Color,
     goodEmotionColor: Color,
@@ -47,7 +59,10 @@ class MoodiaryColors(
     warningEmotionColor: Color,
     badEmotionColor: Color,
     activeStrokeColor: Color,
-    inactiveStrokeColor: Color
+    inactiveStrokeColor: Color,
+    iconColor1: Color,
+    iconColor2: Color,
+    indicationColor1: Color
 ) {
     var background by mutableStateOf(background)
         private set
@@ -59,6 +74,12 @@ class MoodiaryColors(
         private set
 
     var fontColor3 by mutableStateOf(fontColor3)
+        private set
+
+    var fontColor4 by mutableStateOf(fontColor4)
+        private set
+
+    var fontColor5 by mutableStateOf(fontColor5)
         private set
 
     var cardColor by mutableStateOf(cardColor)
@@ -85,11 +106,22 @@ class MoodiaryColors(
     var inactiveStrokeColor by mutableStateOf(inactiveStrokeColor)
         private set
 
+    var iconColor1 by mutableStateOf(iconColor1)
+        private set
+
+    var iconColor2 by mutableStateOf(iconColor2)
+        private set
+
+    var indicationColor1 by mutableStateOf(indicationColor1)
+        private set
+
     fun copy(
         background: Color = this.background,
         fontColor: Color = this.fontColor,
         fontColor2: Color = this.fontColor2,
         fontColor3: Color = this.fontColor3,
+        fontColor4: Color = this.fontColor4,
+        fontColor5: Color = this.fontColor5,
         cardColor: Color = this.cardColor,
         buttonColor: Color = this.buttonColor,
         goodEmotionColor: Color = this.goodEmotionColor,
@@ -97,12 +129,17 @@ class MoodiaryColors(
         warningEmotionColor: Color = this.warningEmotionColor,
         badEmotionColor: Color = this.badEmotionColor,
         activeStrokeColor: Color = this.activeStrokeColor,
-        inactiveStrokeColor: Color = this.inactiveStrokeColor
+        inactiveStrokeColor: Color = this.inactiveStrokeColor,
+        iconColor1: Color = this.iconColor1,
+        iconColor2: Color = this.iconColor2,
+        indicationColor1: Color = this.indicationColor1
     ) = MoodiaryColors(
         background = background,
         fontColor = fontColor,
         fontColor2 = fontColor2,
         fontColor3 = fontColor3,
+        fontColor4 = fontColor4,
+        fontColor5 = fontColor5,
         cardColor = cardColor,
         buttonColor = buttonColor,
         goodEmotionColor = goodEmotionColor,
@@ -110,7 +147,10 @@ class MoodiaryColors(
         warningEmotionColor = warningEmotionColor,
         badEmotionColor = badEmotionColor,
         activeStrokeColor = activeStrokeColor,
-        inactiveStrokeColor = inactiveStrokeColor
+        inactiveStrokeColor = inactiveStrokeColor,
+        iconColor1 = iconColor1,
+        iconColor2 = iconColor2,
+        indicationColor1 = indicationColor1
     )
 
     fun updateColorsFrom(other: MoodiaryColors) {
@@ -118,6 +158,8 @@ class MoodiaryColors(
         fontColor = other.fontColor
         fontColor2 = other.fontColor2
         fontColor3 = other.fontColor3
+        fontColor4 = other.fontColor4
+        fontColor5 = other.fontColor5
         cardColor = other.cardColor
         buttonColor = other.buttonColor
         goodEmotionColor = other.goodEmotionColor
@@ -126,5 +168,8 @@ class MoodiaryColors(
         badEmotionColor = other.badEmotionColor
         activeStrokeColor = other.activeStrokeColor
         inactiveStrokeColor = other.inactiveStrokeColor
+        iconColor1 = other.iconColor1
+        iconColor2 = other.iconColor2
+        indicationColor1 = other.indicationColor1
     }
 }

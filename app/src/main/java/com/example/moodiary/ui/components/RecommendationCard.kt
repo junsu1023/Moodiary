@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.moodiary.R
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 
 @Composable
 fun RecommendationCard(
@@ -39,12 +41,15 @@ fun RecommendationCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
-                .then(if (music != null && onMusicClick != null) Modifier.clickable { onMusicClick() } else Modifier)
+                .then(if (music != null && onMusicClick != null) Modifier.clickable { onMusicClick() } else Modifier),
+            colors = CardDefaults.cardColors(
+                containerColor = MoodiaryCustomTheme.colors.cardColor
+            )
         ) {
             CardItem(
                 painter = painterResource(R.drawable.music),
                 title = stringResource(R.string.recommend_music),
-                content = music ?: stringResource(R.string.displayed_recommend_music)
+                content = music ?: stringResource(R.string.displayed_recommend_music),
             )
         }
 
@@ -52,7 +57,10 @@ fun RecommendationCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
-                .then(if (quote != null && onQuoteClick != null) Modifier.clickable { onQuoteClick() } else Modifier)
+                .then(if (quote != null && onQuoteClick != null) Modifier.clickable { onQuoteClick() } else Modifier),
+            colors = CardDefaults.cardColors(
+                containerColor = MoodiaryCustomTheme.colors.cardColor
+            )
         ) {
             CardItem(
                 imageVector = Icons.Default.Favorite,
@@ -100,14 +108,15 @@ fun CardItem(
             Text(
                 text = title,
                 style = MaterialTheme.typography.bodySmall,
-                color = colorResource(id = R.color.moodNeutral)
+                color = MoodiaryCustomTheme.colors.fontColor3
             )
 
             Text(
                 text = content,
                 style = MaterialTheme.typography.bodyLarge,
                 maxLines = 1,
-                modifier = Modifier.basicMarquee()
+                modifier = Modifier.basicMarquee(),
+                color = MoodiaryCustomTheme.colors.fontColor
             )
         }
     }
