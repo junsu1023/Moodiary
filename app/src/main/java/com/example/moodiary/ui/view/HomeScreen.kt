@@ -35,6 +35,7 @@ import com.example.domain.model.DiaryModel
 import com.example.moodiary.R
 import com.example.moodiary.ui.components.EmotionCard
 import com.example.moodiary.ui.components.RecommendationCard
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.viewmodel.HomeViewModel
 
 @Composable
@@ -51,7 +52,8 @@ fun HomeScreen(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(16.dp),
+        color = MoodiaryCustomTheme.colors.background
     ) {
         Column(
             modifier = Modifier.verticalScroll(state = scrollState),

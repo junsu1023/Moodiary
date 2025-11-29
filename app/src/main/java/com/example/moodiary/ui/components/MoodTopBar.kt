@@ -10,10 +10,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.moodiary.R
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,13 +27,13 @@ fun MoodTopBar(title: String) {
                     text = title,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    color = colorResource(id = R.color.moodPrimary),
-                    modifier = Modifier.align(Alignment.CenterStart)
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    color = MoodiaryCustomTheme.colors.fontColor
                 )
             }
         },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = colorResource(id = R.color.moodBackground)
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MoodiaryCustomTheme.colors.background
         )
     )
 }

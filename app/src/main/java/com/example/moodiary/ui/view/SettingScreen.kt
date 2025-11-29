@@ -2,6 +2,7 @@
 package com.example.moodiary.ui.view
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -150,7 +152,7 @@ private fun SettingRow(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
                 onClick = onClick
-            )
+            ).background(color = MaterialTheme.colorScheme.background)
     ) {
         ListItem(
             headlineContent = {
@@ -167,7 +169,10 @@ private fun SettingRow(
             },
             trailingContent = {
                 trailing()
-            }
+            },
+            colors = ListItemDefaults.colors(
+                containerColor = MaterialTheme.colorScheme.background
+            )
         )
     }
 }

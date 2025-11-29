@@ -8,17 +8,19 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.moodiary.R
 import com.example.moodiary.ui.navigation.Screen
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 
 data class BottomNavItem(val route: String, val title: String, val icon: @Composable () -> Unit)
 
@@ -37,7 +39,7 @@ fun BottomBar(navController: NavController) {
         modifier = Modifier
             .navigationBarsPadding()
             .height(56.dp),
-        containerColor = colorResource(id = R.color.moodBackground)
+        containerColor = MoodiaryCustomTheme.colors.background
     ) {
         items.forEach { item ->
             NavigationBarItem(
@@ -50,7 +52,11 @@ fun BottomBar(navController: NavController) {
                             launchSingleTop = true
                         }
                     }
-                }
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedTextColor = MoodiaryCustomTheme.colors.fontColor,
+                    unselectedIconColor = MoodiaryCustomTheme.colors.fontColor3
+                )
             )
         }
     }
