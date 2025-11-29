@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,6 +19,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.moodiary.R
 import com.example.moodiary.ui.components.BottomBar
 import com.example.moodiary.ui.components.MoodTopBar
+import com.example.moodiary.ui.theme.MoodiaryColors
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.ui.view.DiaryWriteScreen
 import com.example.moodiary.ui.view.EmotionHistoryScreen
 import com.example.moodiary.ui.view.HomeScreen
@@ -53,7 +56,8 @@ fun MoodiaryNavHost(
             if(currentRoute == Screen.Home.route) {
                 FloatingActionButton(
                     shape = CircleShape,
-                    onClick = { navController.navigate(Screen.Write.route) }
+                    onClick = { navController.navigate(Screen.Write.route) },
+                    containerColor = MoodiaryCustomTheme.colors.buttonColor
                 ) {
                     Icon(
                         imageVector = Icons.Default.Edit,
@@ -61,7 +65,8 @@ fun MoodiaryNavHost(
                     )
                 }
             }
-        }
+        },
+        containerColor = MoodiaryCustomTheme.colors.background
     ) { innerPadding ->
         NavHost(
             navController = navController,

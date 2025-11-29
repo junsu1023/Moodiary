@@ -7,7 +7,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -17,16 +21,16 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moodiary.R
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 
 @Composable
 fun EmotionCard(title: String, score: Int) {
-    val moodNeutral = colorResource(id = R.color.moodNeutral)
-    val moodPrimary = colorResource(id = R.color.moodPrimary)
+    val activeStrokeColor = MoodiaryCustomTheme.colors.activeStrokeColor
+    val inActiveStrokeColor = MoodiaryCustomTheme.colors.inactiveStrokeColor
 
     val clamped = score.coerceIn(0, 100)
     val sweepTotal = 300f            // 보이는 아크 총 각도 (하단에 gap)
@@ -36,7 +40,10 @@ fun EmotionCard(title: String, score: Int) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp)
+            .padding(4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MoodiaryCustomTheme.colors.cardColor
+        )
     ) {
         Column(
             modifier = Modifier
@@ -47,7 +54,7 @@ fun EmotionCard(title: String, score: Int) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
-                color = colorResource(id = R.color.moodPrimary)
+                color = MoodiaryCustomTheme.colors.fontColor2
             )
 
             Box(
@@ -62,7 +69,7 @@ fun EmotionCard(title: String, score: Int) {
 
                     // 배경 아크 (회색)
                     drawArc(
-                        color = moodNeutral,
+                        color = inActiveStrokeColor,
                         startAngle = startAngle,
                         sweepAngle = sweepTotal,
                         useCenter = false,
@@ -74,7 +81,7 @@ fun EmotionCard(title: String, score: Int) {
                     // 전경 아크 (점수 비율)
                     val foregroundSweep = (clamped / 100f) * sweepTotal
                     drawArc(
-                        color = moodPrimary,
+                        color = activeStrokeColor,
                         startAngle = startAngle,
                         sweepAngle = foregroundSweep,
                         useCenter = false,
@@ -90,13 +97,14 @@ fun EmotionCard(title: String, score: Int) {
                     Text(
                         text = if(clamped == 0) "?" else "$clamped",
                         style = MaterialTheme.typography.headlineSmall,
-                        color = colorResource(id = R.color.moodPrimary)
+                        color = MoodiaryCustomTheme.colors.fontColor2
                     )
 
                     Text(
                         text = stringResource(R.string.score),
                         style = MaterialTheme.typography.bodySmall,
-                        fontSize = 12.sp
+                        fontSize = 12.sp,
+                        color = MoodiaryCustomTheme.colors.fontColor
                     )
                 }
             }
