@@ -90,14 +90,14 @@ fun CardItem(
             Icon(
                 imageVector = imageVector!!,
                 contentDescription = null,
-                tint = colorResource(id = R.color.moodSecondary),
+                tint = MoodiaryCustomTheme.colors.iconColor3,
                 modifier = Modifier.size(28.dp)
             )
         } else {
             Icon(
                 painter = painter,
                 contentDescription = null,
-                tint = colorResource(id = R.color.moodSecondary),
+                tint = MoodiaryCustomTheme.colors.iconColor3,
                 modifier = Modifier.size(28.dp)
             )
         }

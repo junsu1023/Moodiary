@@ -28,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -55,7 +54,11 @@ fun HomeScreen(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(
+                start = 16.dp,
+                end = 16.dp,
+                bottom = 16.dp
+            ),
         color = MoodiaryCustomTheme.colors.background
     ) {
         Column(
@@ -91,6 +94,8 @@ fun HomeScreen(
                 for(item in recent.take(3)) {
                     RecentDiaryCard(item)
                 }
+
+                Spacer(modifier = Modifier.height(16.dp))
             }
 
             if(uiState.isLoading) {

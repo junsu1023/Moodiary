@@ -8,11 +8,11 @@ import androidx.compose.ui.graphics.Color
 val lightColors = MoodiaryColors(
     background = Color(0xFFf8f7fe),
     fontColor = Color(0xFF1E1E1E),
-    fontColor2 = Color(0xFF6C5CE7),
+    fontColor2 = Color(0xFF7C6FF6),
     fontColor3 = Color(0xFF8E8E8E),
     fontColor4 = Color(0xFF95A5A6),
     fontColor5 = Color(0xFFFFFFFF),
-    cardColor = Color(0xFFdddee9),
+    cardColor = Color(0xFFEFF4FB),
     buttonColor = Color(0xFF5E73AA),
     goodEmotionColor = Color(0xFF4CAF50),
     soSoEmotionColor = Color(0xFFFFC107),
@@ -22,6 +22,7 @@ val lightColors = MoodiaryColors(
     inactiveStrokeColor = Color(0xFF95A5A6),
     iconColor1 = Color(0xFFFFFFFF),
     iconColor2 = Color(0xFFE2E2EC),
+    iconColor3 = Color(0xFF67CFA3),
     indicationColor1 = Color(0xFF62697C)
 )
 
@@ -42,6 +43,7 @@ val darkColors = MoodiaryColors(
     inactiveStrokeColor = Color(0xFF95A5A6),
     iconColor1 = Color(0xFFFFFFFF),
     iconColor2 = Color(0xFFE2E2EC),
+    iconColor3 = Color(0xFF67CFA3),
     indicationColor1 = Color(0xFF62697C)
 )
 
@@ -62,6 +64,7 @@ class MoodiaryColors(
     inactiveStrokeColor: Color,
     iconColor1: Color,
     iconColor2: Color,
+    iconColor3: Color,
     indicationColor1: Color
 ) {
     var background by mutableStateOf(background)
@@ -112,6 +115,9 @@ class MoodiaryColors(
     var iconColor2 by mutableStateOf(iconColor2)
         private set
 
+    var iconColor3 by mutableStateOf(iconColor3)
+        private set
+
     var indicationColor1 by mutableStateOf(indicationColor1)
         private set
 
@@ -132,6 +138,7 @@ class MoodiaryColors(
         inactiveStrokeColor: Color = this.inactiveStrokeColor,
         iconColor1: Color = this.iconColor1,
         iconColor2: Color = this.iconColor2,
+        iconColor3: Color = this.iconColor3,
         indicationColor1: Color = this.indicationColor1
     ) = MoodiaryColors(
         background = background,
@@ -150,6 +157,7 @@ class MoodiaryColors(
         inactiveStrokeColor = inactiveStrokeColor,
         iconColor1 = iconColor1,
         iconColor2 = iconColor2,
+        iconColor3 = iconColor3,
         indicationColor1 = indicationColor1
     )
 
@@ -170,6 +178,7 @@ class MoodiaryColors(
         inactiveStrokeColor = other.inactiveStrokeColor
         iconColor1 = other.iconColor1
         iconColor2 = other.iconColor2
+        iconColor3 = other.iconColor3
         indicationColor1 = other.indicationColor1
     }
 }

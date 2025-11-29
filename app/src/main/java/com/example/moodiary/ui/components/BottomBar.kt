@@ -36,7 +36,7 @@ fun BottomBar(navController: NavController) {
     NavigationBar(
         modifier = Modifier
             .navigationBarsPadding()
-            .height(56.dp),
+            .height(60.dp),
         containerColor = MoodiaryCustomTheme.colors.background
     ) {
         items.forEach { item ->
