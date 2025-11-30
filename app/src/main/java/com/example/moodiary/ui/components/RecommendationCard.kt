@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -116,7 +115,7 @@ fun CardItem(
                 style = MaterialTheme.typography.bodyLarge,
                 maxLines = 1,
                 modifier = Modifier.basicMarquee(),
-                color = MoodiaryCustomTheme.colors.fontColor
+                color = MoodiaryCustomTheme.colors.fontColor1
             )
         }
     }

@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 
 val lightColors = MoodiaryColors(
     background = Color(0xFFf8f7fe),
-    fontColor = Color(0xFF1E1E1E),
+    fontColor1 = Color(0xFF1E1E1E),
     fontColor2 = Color(0xFF7C6FF6),
     fontColor3 = Color(0xFF8E8E8E),
     fontColor4 = Color(0xFF95A5A6),
@@ -28,7 +28,7 @@ val lightColors = MoodiaryColors(
 
 val darkColors = MoodiaryColors(
     background = Color(0xFF2B2B2B),
-    fontColor = Color(0xFFE2E2EC),
+    fontColor1 = Color(0xFFE2E2EC),
     fontColor2 = Color(0xFF6C5CE7),
     fontColor3 = Color(0xFF8E8E8E),
     fontColor4 = Color(0xFF95A5A6),
@@ -49,7 +49,7 @@ val darkColors = MoodiaryColors(
 
 class MoodiaryColors(
     background: Color,
-    fontColor: Color,
+    fontColor1: Color,
     fontColor2: Color,
     fontColor3: Color,
     fontColor4: Color,
@@ -70,7 +70,7 @@ class MoodiaryColors(
     var background by mutableStateOf(background)
         private set
 
-    var fontColor by mutableStateOf(fontColor)
+    var fontColor1 by mutableStateOf(fontColor1)
         private set
 
     var fontColor2 by mutableStateOf(fontColor2)
@@ -123,7 +123,7 @@ class MoodiaryColors(
 
     fun copy(
         background: Color = this.background,
-        fontColor: Color = this.fontColor,
+        fontColor1: Color = this.fontColor1,
         fontColor2: Color = this.fontColor2,
         fontColor3: Color = this.fontColor3,
         fontColor4: Color = this.fontColor4,
@@ -142,7 +142,7 @@ class MoodiaryColors(
         indicationColor1: Color = this.indicationColor1
     ) = MoodiaryColors(
         background = background,
-        fontColor = fontColor,
+        fontColor1 = fontColor1,
         fontColor2 = fontColor2,
         fontColor3 = fontColor3,
         fontColor4 = fontColor4,
@@ -163,7 +163,7 @@ class MoodiaryColors(
 
     fun updateColorsFrom(other: MoodiaryColors) {
         background = other.background
-        fontColor = other.fontColor
+        fontColor1 = other.fontColor1
         fontColor2 = other.fontColor2
         fontColor3 = other.fontColor3
         fontColor4 = other.fontColor4

@@ -85,7 +85,7 @@ fun HomeScreen(
             Text(
                 text = stringResource(R.string.recent_diary),
                 style = MaterialTheme.typography.titleMedium,
-                color = MoodiaryCustomTheme.colors.fontColor
+                color = MoodiaryCustomTheme.colors.fontColor1
             )
 
             Column(
@@ -149,7 +149,7 @@ private fun RecentDiaryCard(item: DiaryModel) {
                     text = item.content,
                     style = MaterialTheme.typography.bodyLarge,
                     overflow = TextOverflow.Ellipsis,
-                    color = MoodiaryCustomTheme.colors.fontColor
+                    color = MoodiaryCustomTheme.colors.fontColor1
                 )
             }
 

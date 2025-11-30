@@ -1,7 +1,6 @@
 package com.example.moodiary.ui.view
 
 import android.widget.Toast
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,20 +10,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moodiary.R
 import com.example.moodiary.state.SaveState
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.viewmodel.WriteViewModel
 
 @Composable
@@ -51,17 +51,20 @@ fun DiaryWriteScreen(
         }
     }
 
-    Surface {
+    Surface(
+        color = MoodiaryCustomTheme.colors.background
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
 
             Text(
                 text = stringResource(R.string.write_diary),
-                style = MaterialTheme.typography.titleMedium,
+                style = MoodiaryCustomTheme.typography.titleMedium,
+                color = MoodiaryCustomTheme.colors.fontColor2,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp)
@@ -71,7 +74,10 @@ fun DiaryWriteScreen(
                 modifier = Modifier
                     .weight(1f)
                     .height(180.dp)
-                    .padding(4.dp)
+                    .padding(4.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MoodiaryCustomTheme.colors.cardColor
+                )
             ) {
                 BasicTextField(
                     value = uiState.content,
@@ -79,7 +85,7 @@ fun DiaryWriteScreen(
                     modifier = Modifier
                         .padding(12.dp)
                         .fillMaxSize(),
-                    textStyle = TextStyle(color = colorResource(R.color.black))
+                    textStyle = TextStyle(color = MoodiaryCustomTheme.colors.fontColor1)
                 )
             }
 
@@ -90,9 +96,15 @@ fun DiaryWriteScreen(
                 Button(
                     onClick = {
                         writeViewModel.saveDiary()
-                    }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MoodiaryCustomTheme.colors.buttonColor
+                    )
                 ) {
-                    Text(text = stringResource(R.string.save))
+                    Text(
+                        text = stringResource(R.string.save),
+                        color = MoodiaryCustomTheme.colors.fontColor5
+                    )
                 }
             }
         }
