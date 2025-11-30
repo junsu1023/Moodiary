@@ -23,12 +23,13 @@ val lightColors = MoodiaryColors(
     iconColor1 = Color(0xFFFFFFFF),
     iconColor2 = Color(0xFFE2E2EC),
     iconColor3 = Color(0xFF67CFA3),
-    indicationColor1 = Color(0xFF62697C)
+    indicationColor1 = Color(0xFF62697C),
+    indicationColor2 = Color(0xFFF0F0F0)
 )
 
 val darkColors = MoodiaryColors(
     background = Color(0xFF2B2B2B),
-    fontColor1 = Color(0xFFE2E2EC),
+    fontColor1 = Color(0xFF1E1E1E),
     fontColor2 = Color(0xFF6C5CE7),
     fontColor3 = Color(0xFF8E8E8E),
     fontColor4 = Color(0xFF95A5A6),
@@ -44,7 +45,8 @@ val darkColors = MoodiaryColors(
     iconColor1 = Color(0xFFFFFFFF),
     iconColor2 = Color(0xFFE2E2EC),
     iconColor3 = Color(0xFF67CFA3),
-    indicationColor1 = Color(0xFF62697C)
+    indicationColor1 = Color(0xFF62697C),
+    indicationColor2 = Color(0xFFF0F0F0)
 )
 
 class MoodiaryColors(
@@ -65,7 +67,8 @@ class MoodiaryColors(
     iconColor1: Color,
     iconColor2: Color,
     iconColor3: Color,
-    indicationColor1: Color
+    indicationColor1: Color,
+    indicationColor2: Color
 ) {
     var background by mutableStateOf(background)
         private set
@@ -121,6 +124,9 @@ class MoodiaryColors(
     var indicationColor1 by mutableStateOf(indicationColor1)
         private set
 
+    var indicationColor2 by mutableStateOf(indicationColor2)
+        private set
+
     fun copy(
         background: Color = this.background,
         fontColor1: Color = this.fontColor1,
@@ -139,7 +145,8 @@ class MoodiaryColors(
         iconColor1: Color = this.iconColor1,
         iconColor2: Color = this.iconColor2,
         iconColor3: Color = this.iconColor3,
-        indicationColor1: Color = this.indicationColor1
+        indicationColor1: Color = this.indicationColor1,
+        indicationColor2: Color = this.indicationColor2
     ) = MoodiaryColors(
         background = background,
         fontColor1 = fontColor1,
@@ -158,7 +165,8 @@ class MoodiaryColors(
         iconColor1 = iconColor1,
         iconColor2 = iconColor2,
         iconColor3 = iconColor3,
-        indicationColor1 = indicationColor1
+        indicationColor1 = indicationColor1,
+        indicationColor2 = indicationColor2
     )
 
     fun updateColorsFrom(other: MoodiaryColors) {
@@ -180,5 +188,6 @@ class MoodiaryColors(
         iconColor2 = other.iconColor2
         iconColor3 = other.iconColor3
         indicationColor1 = other.indicationColor1
+        indicationColor2 = other.indicationColor2
     }
 }

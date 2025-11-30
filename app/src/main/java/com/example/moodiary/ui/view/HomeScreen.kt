@@ -19,7 +19,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -84,7 +83,7 @@ fun HomeScreen(
 
             Text(
                 text = stringResource(R.string.recent_diary),
-                style = MaterialTheme.typography.titleMedium,
+                style = MoodiaryCustomTheme.typography.titleMedium,
                 color = MoodiaryCustomTheme.colors.fontColor1
             )
 
@@ -139,7 +138,7 @@ private fun RecentDiaryCard(item: DiaryModel) {
             ) {
                 Text(
                     text = item.timeStamp?.convertString() ?: stringResource(R.string.error),
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MoodiaryCustomTheme.typography.bodySmall,
                     color = MoodiaryCustomTheme.colors.fontColor3
                 )
 
@@ -147,7 +146,7 @@ private fun RecentDiaryCard(item: DiaryModel) {
 
                 Text(
                     text = item.content,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MoodiaryCustomTheme.typography.bodyLarge,
                     overflow = TextOverflow.Ellipsis,
                     color = MoodiaryCustomTheme.colors.fontColor1
                 )

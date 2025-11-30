@@ -1,6 +1,7 @@
 package com.example.moodiary.ui.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -13,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.data.mapper.convertString
 import com.example.moodiary.ui.components.EmotionCardDetailed
 import com.example.moodiary.R
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.viewmodel.HistoryViewModel
 
 @Composable
@@ -44,14 +45,18 @@ fun EmotionHistoryScreen(
     val listState = rememberLazyListState()
 
     LazyColumn(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier
+            .padding(16.dp)
+            .background(MoodiaryCustomTheme.colors.background)
+        ,
         state = listState,
-        verticalArrangement = spacedBy(12.dp)
+        verticalArrangement = spacedBy(12.dp),
     ) {
         item {
             Text(
                 text = stringResource(R.string.mood_history),
-                style = MaterialTheme.typography.titleLarge
+                style = MoodiaryCustomTheme.typography.titleLarge,
+                color = MoodiaryCustomTheme.colors.fontColor1
             )
 
             Row(
@@ -97,7 +102,8 @@ fun EmotionHistoryScreen(
 
                     Text(
                         text = stringResource(R.string.no_diary_filtered),
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MoodiaryCustomTheme.typography.bodyMedium,
+                        color = MoodiaryCustomTheme.colors.fontColor1
                     )
                 }
             }

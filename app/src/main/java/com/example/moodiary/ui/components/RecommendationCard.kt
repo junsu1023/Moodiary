@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -106,13 +105,13 @@ fun CardItem(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodySmall,
+                style = MoodiaryCustomTheme.typography.bodySmall,
                 color = MoodiaryCustomTheme.colors.fontColor3
             )
 
             Text(
                 text = content,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MoodiaryCustomTheme.typography.bodyLarge,
                 maxLines = 1,
                 modifier = Modifier.basicMarquee(),
                 color = MoodiaryCustomTheme.colors.fontColor1

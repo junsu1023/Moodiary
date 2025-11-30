@@ -9,11 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.ui.graphics.Color
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.remember
-import androidx.compose.ui.res.colorResource
-import com.example.moodiary.R
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 
 @Composable
 fun EmotionFilterChip(
@@ -23,7 +20,7 @@ fun EmotionFilterChip(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = if (selected) MaterialTheme.colorScheme.primary else Color(0xFFF0F0F0),
+        color = if (selected) MoodiaryCustomTheme.colors.indicationColor1 else MoodiaryCustomTheme.colors.indicationColor2,
         modifier = Modifier
             .padding(end = 8.dp)
             .clickable(
@@ -34,12 +31,12 @@ fun EmotionFilterChip(
     ) {
         Text(
             text = label,
-            color = if (selected) colorResource(R.color.white) else colorResource(R.color.black),
+            color = if (selected) MoodiaryCustomTheme.colors.fontColor5 else MoodiaryCustomTheme.colors.fontColor1,
             modifier = Modifier.padding(
                 horizontal = 12.dp,
                 vertical = 8.dp
             ),
-            style = MaterialTheme.typography.bodySmall
+            style = MoodiaryCustomTheme.typography.bodySmall
         )
     }
 }

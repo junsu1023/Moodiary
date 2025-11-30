@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlin.math.min
 import com.example.moodiary.R
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.ui.view.getScoreColor
 
 @Composable
@@ -42,7 +43,10 @@ fun EmotionCardDetailed(
 
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(10.dp)
+        shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MoodiaryCustomTheme.colors.cardColor
+        )
     ) {
         Row(
             modifier = Modifier
@@ -86,7 +90,8 @@ fun EmotionCardDetailed(
 
                 Text(
                     text = "${score}%",
-                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold)
+                    style = MoodiaryCustomTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                    color = MoodiaryCustomTheme.colors.fontColor1
                 )
             }
 
@@ -97,9 +102,10 @@ fun EmotionCardDetailed(
             ) {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleSmall,
+                    style = MoodiaryCustomTheme.typography.titleSmall,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    color = MoodiaryCustomTheme.colors.fontColor1
                 )
 
                 Spacer(modifier = Modifier.height(6.dp))
@@ -112,7 +118,8 @@ fun EmotionCardDetailed(
                         Text(
                             text = emotion,
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                            style = MaterialTheme.typography.labelSmall
+                            style = MoodiaryCustomTheme.typography.labelSmall,
+                            color = MoodiaryCustomTheme.colors.fontColor1
                         )
                     }
 
@@ -120,7 +127,8 @@ fun EmotionCardDetailed(
 
                     Text(
                         text = "${stringResource(R.string.score)}: ${score}%",
-                        style = MaterialTheme.typography.bodySmall
+                        style = MoodiaryCustomTheme.typography.bodySmall,
+                        color = MoodiaryCustomTheme.colors.fontColor1
                     )
                 }
 
@@ -129,9 +137,10 @@ fun EmotionCardDetailed(
                 if (!summary.isNullOrBlank()) {
                     Text(
                         text = summary,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MoodiaryCustomTheme.typography.bodySmall,
                         maxLines = 3,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        color = MoodiaryCustomTheme.colors.fontColor1
                     )
                 }
             }
