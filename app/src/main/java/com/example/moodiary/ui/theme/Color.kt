@@ -12,6 +12,7 @@ val lightColors = MoodiaryColors(
     fontColor3 = Color(0xFF8E8E8E),
     fontColor4 = Color(0xFF95A5A6),
     fontColor5 = Color(0xFFFFFFFF),
+    fontColor6 = Color(0xFF1E1E1E),
     cardColor = Color(0xFFEFF4FB),
     buttonColor = Color(0xFF5E73AA),
     goodEmotionColor = Color(0xFF4CAF50),
@@ -24,7 +25,12 @@ val lightColors = MoodiaryColors(
     iconColor2 = Color(0xFFE2E2EC),
     iconColor3 = Color(0xFF67CFA3),
     indicationColor1 = Color(0xFF62697C),
-    indicationColor2 = Color(0xFFF0F0F0)
+    indicationColor2 = Color(0xFFF0F0F0),
+    onThumbColor = Color(0xFF7B61FF),
+    onTrackColor = Color(0xFFE6E1FF),
+    offThumbColor = Color(0xFFC6C6C6),
+    offTrackColor = Color(0xFFE5E5E5),
+    borderColor1 = Color(0xFF95A5A6)
 )
 
 val darkColors = MoodiaryColors(
@@ -34,6 +40,7 @@ val darkColors = MoodiaryColors(
     fontColor3 = Color(0xFF8E8E8E),
     fontColor4 = Color(0xFF95A5A6),
     fontColor5 = Color(0xFFFFFFFF),
+    fontColor6 = Color(0xFFFFFFFF),
     cardColor = Color(0xFFE2E2EC),
     buttonColor = Color(0xFF5E73AA),
     goodEmotionColor = Color(0xFF4CAF50),
@@ -46,7 +53,12 @@ val darkColors = MoodiaryColors(
     iconColor2 = Color(0xFFE2E2EC),
     iconColor3 = Color(0xFF67CFA3),
     indicationColor1 = Color(0xFF62697C),
-    indicationColor2 = Color(0xFFF0F0F0)
+    indicationColor2 = Color(0xFFF0F0F0),
+    onThumbColor = Color(0xFF7B61FF),
+    onTrackColor = Color(0xFFE6E1FF),
+    offThumbColor = Color(0xFFC6C6C6),
+    offTrackColor = Color(0xFFE5E5E5),
+    borderColor1 = Color(0xFF95A5A6)
 )
 
 class MoodiaryColors(
@@ -56,6 +68,7 @@ class MoodiaryColors(
     fontColor3: Color,
     fontColor4: Color,
     fontColor5: Color,
+    fontColor6: Color,
     cardColor: Color,
     buttonColor: Color,
     goodEmotionColor: Color,
@@ -68,7 +81,12 @@ class MoodiaryColors(
     iconColor2: Color,
     iconColor3: Color,
     indicationColor1: Color,
-    indicationColor2: Color
+    indicationColor2: Color,
+    onThumbColor: Color,
+    onTrackColor: Color,
+    offThumbColor: Color,
+    offTrackColor: Color,
+    borderColor1: Color
 ) {
     var background by mutableStateOf(background)
         private set
@@ -86,6 +104,9 @@ class MoodiaryColors(
         private set
 
     var fontColor5 by mutableStateOf(fontColor5)
+        private set
+
+    var fontColor6 by mutableStateOf(fontColor6)
         private set
 
     var cardColor by mutableStateOf(cardColor)
@@ -127,6 +148,21 @@ class MoodiaryColors(
     var indicationColor2 by mutableStateOf(indicationColor2)
         private set
 
+    var onThumbColor by mutableStateOf(onThumbColor)
+        private set
+
+    var onTrackColor by mutableStateOf(onTrackColor)
+        private set
+
+    var offThumbColor by mutableStateOf(offThumbColor)
+        private set
+
+    var offTrackColor by mutableStateOf(offTrackColor)
+        private set
+
+    var borderColor1 by mutableStateOf(borderColor1)
+        private set
+
     fun copy(
         background: Color = this.background,
         fontColor1: Color = this.fontColor1,
@@ -134,6 +170,7 @@ class MoodiaryColors(
         fontColor3: Color = this.fontColor3,
         fontColor4: Color = this.fontColor4,
         fontColor5: Color = this.fontColor5,
+        fontColor6: Color = this.fontColor6,
         cardColor: Color = this.cardColor,
         buttonColor: Color = this.buttonColor,
         goodEmotionColor: Color = this.goodEmotionColor,
@@ -146,7 +183,12 @@ class MoodiaryColors(
         iconColor2: Color = this.iconColor2,
         iconColor3: Color = this.iconColor3,
         indicationColor1: Color = this.indicationColor1,
-        indicationColor2: Color = this.indicationColor2
+        indicationColor2: Color = this.indicationColor2,
+        onThumbColor: Color = this.onThumbColor,
+        onTrackColor: Color = this.onTrackColor,
+        offThumbColor: Color = this.offThumbColor,
+        offTrackColor: Color = this.offTrackColor,
+        borderColor1: Color = this.borderColor1
     ) = MoodiaryColors(
         background = background,
         fontColor1 = fontColor1,
@@ -154,6 +196,7 @@ class MoodiaryColors(
         fontColor3 = fontColor3,
         fontColor4 = fontColor4,
         fontColor5 = fontColor5,
+        fontColor6 = fontColor6,
         cardColor = cardColor,
         buttonColor = buttonColor,
         goodEmotionColor = goodEmotionColor,
@@ -166,7 +209,12 @@ class MoodiaryColors(
         iconColor2 = iconColor2,
         iconColor3 = iconColor3,
         indicationColor1 = indicationColor1,
-        indicationColor2 = indicationColor2
+        indicationColor2 = indicationColor2,
+        onThumbColor = onThumbColor,
+        onTrackColor = onTrackColor,
+        offThumbColor = offThumbColor,
+        offTrackColor = offTrackColor,
+        borderColor1 = borderColor1
     )
 
     fun updateColorsFrom(other: MoodiaryColors) {
@@ -176,6 +224,7 @@ class MoodiaryColors(
         fontColor3 = other.fontColor3
         fontColor4 = other.fontColor4
         fontColor5 = other.fontColor5
+        fontColor6 = other.fontColor6
         cardColor = other.cardColor
         buttonColor = other.buttonColor
         goodEmotionColor = other.goodEmotionColor
@@ -189,5 +238,10 @@ class MoodiaryColors(
         iconColor3 = other.iconColor3
         indicationColor1 = other.indicationColor1
         indicationColor2 = other.indicationColor2
+        onThumbColor = other.onThumbColor
+        onTrackColor = other.onTrackColor
+        offThumbColor = other.offThumbColor
+        offTrackColor = other.offTrackColor
+        borderColor1 = other.borderColor1
     }
 }

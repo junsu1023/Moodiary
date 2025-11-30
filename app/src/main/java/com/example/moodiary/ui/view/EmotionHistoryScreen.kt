@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -47,8 +48,7 @@ fun EmotionHistoryScreen(
     LazyColumn(
         modifier = Modifier
             .padding(16.dp)
-            .background(MoodiaryCustomTheme.colors.background)
-        ,
+            .background(MoodiaryCustomTheme.colors.background),
         state = listState,
         verticalArrangement = spacedBy(12.dp),
     ) {
@@ -56,7 +56,7 @@ fun EmotionHistoryScreen(
             Text(
                 text = stringResource(R.string.mood_history),
                 style = MoodiaryCustomTheme.typography.titleLarge,
-                color = MoodiaryCustomTheme.colors.fontColor1
+                color = MoodiaryCustomTheme.colors.fontColor6
             )
 
             Row(
@@ -95,7 +95,8 @@ fun EmotionHistoryScreen(
                     Image(
                         modifier = Modifier.size(64.dp),
                         painter = painterResource(R.drawable.no_filter_image),
-                        contentDescription = ""
+                        contentDescription = "",
+                        colorFilter = ColorFilter.tint(MoodiaryCustomTheme.colors.fontColor6)
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -103,7 +104,7 @@ fun EmotionHistoryScreen(
                     Text(
                         text = stringResource(R.string.no_diary_filtered),
                         style = MoodiaryCustomTheme.typography.bodyMedium,
-                        color = MoodiaryCustomTheme.colors.fontColor1
+                        color = MoodiaryCustomTheme.colors.fontColor6
                     )
                 }
             }

@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moodiary.R
 import com.example.moodiary.state.DialogKind
 import com.example.moodiary.ui.components.SettingDialog
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.viewmodel.SettingViewModel
 
 @Composable
@@ -60,7 +61,15 @@ fun SettingsScreen(
             trailing = {
                 Switch(
                     checked = uiState.notificationsEnabled,
-                    onCheckedChange = { viewModel.toggleNotifications() }
+                    onCheckedChange = { viewModel.toggleNotifications() },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = MoodiaryCustomTheme.colors.onThumbColor,
+                        uncheckedThumbColor = MoodiaryCustomTheme.colors.offTrackColor,
+                        checkedTrackColor = MoodiaryCustomTheme.colors.onTrackColor,
+                        uncheckedTrackColor = MoodiaryCustomTheme.colors.offTrackColor,
+                        checkedBorderColor = MoodiaryCustomTheme.colors.fontColor1,
+                        uncheckedBorderColor = MoodiaryCustomTheme.colors.fontColor1
+                    )
                 )
             },
             onClick = { }
@@ -74,7 +83,15 @@ fun SettingsScreen(
             trailing = {
                 Switch(
                     checked = uiState.isDarkMode,
-                    onCheckedChange = { viewModel.toggleDarkMode() }
+                    onCheckedChange = { viewModel.toggleDarkMode() },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = MoodiaryCustomTheme.colors.onThumbColor,
+                        uncheckedThumbColor = MoodiaryCustomTheme.colors.offTrackColor,
+                        checkedTrackColor = MoodiaryCustomTheme.colors.onTrackColor,
+                        uncheckedTrackColor = MoodiaryCustomTheme.colors.offTrackColor,
+                        checkedBorderColor = MoodiaryCustomTheme.colors.fontColor4,
+                        uncheckedBorderColor = MoodiaryCustomTheme.colors.fontColor4
+                    )
                 )
             },
             onClick = { }
@@ -152,26 +169,29 @@ private fun SettingRow(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
                 onClick = onClick
-            ).background(color = MaterialTheme.colorScheme.background)
+            )
+            .background(MoodiaryCustomTheme.colors.background)
     ) {
         ListItem(
             headlineContent = {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MoodiaryCustomTheme.typography.titleMedium,
+                    color = MoodiaryCustomTheme.colors.fontColor6
                 )
             },
             supportingContent = {
                 Text(
                     text = description,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MoodiaryCustomTheme.typography.bodyMedium,
+                    color = MoodiaryCustomTheme.colors.fontColor3
                 )
             },
             trailingContent = {
                 trailing()
             },
             colors = ListItemDefaults.colors(
-                containerColor = MaterialTheme.colorScheme.background
+                containerColor = MoodiaryCustomTheme.colors.background
             )
         )
     }

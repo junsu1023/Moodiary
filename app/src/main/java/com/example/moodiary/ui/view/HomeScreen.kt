@@ -84,7 +84,7 @@ fun HomeScreen(
             Text(
                 text = stringResource(R.string.recent_diary),
                 style = MoodiaryCustomTheme.typography.titleMedium,
-                color = MoodiaryCustomTheme.colors.fontColor1
+                color = MoodiaryCustomTheme.colors.fontColor6
             )
 
             Column(

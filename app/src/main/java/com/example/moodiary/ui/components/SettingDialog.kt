@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moodiary.state.DialogKind
 import com.example.moodiary.R
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.viewmodel.SettingViewModel
 
 @Composable
@@ -37,14 +38,20 @@ fun SettingDialog(
             TextButton(
                 onClick = { onConfirm() }
             ) {
-                Text(text = stringResource(R.string.confirm))
+                Text(
+                    text = stringResource(R.string.confirm),
+                    color = MoodiaryCustomTheme.colors.fontColor1
+                )
             }
         },
         dismissButton = {
             TextButton(
                 onClick = { onDismiss() }
             ) {
-                Text(text = stringResource(R.string.cancel))
+                Text(
+                    text = stringResource(R.string.cancel),
+                    color = MoodiaryCustomTheme.colors.fontColor1
+                )
             }
         },
         title = {
@@ -53,13 +60,17 @@ fun SettingDialog(
                     is DialogKind.Logout -> stringResource(R.string.logout)
                     is DialogKind.ChangePassword -> stringResource(R.string.change_password)
                     is DialogKind.NoShow -> ""
-                }
+                },
+                color = MoodiaryCustomTheme.colors.fontColor1
             )
         },
         text = {
             when(kind) {
                 is DialogKind.Logout -> {
-                    Text(text = stringResource(R.string.logout_dialog_content))
+                    Text(
+                        text = stringResource(R.string.logout_dialog_content),
+                        color = MoodiaryCustomTheme.colors.fontColor3
+                    )
                 }
                 is DialogKind.ChangePassword -> {
                     Column(
@@ -69,7 +80,10 @@ fun SettingDialog(
                             value = changePasswordDialogState.curPassword,
                             onValueChange = { viewModel.onChangeCurPassword(it) },
                             label = {
-                                Text(text = stringResource(R.string.password))
+                                Text(
+                                    text = stringResource(R.string.password),
+                                    color = MoodiaryCustomTheme.colors.fontColor3
+                                )
                             },
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth(),
@@ -83,7 +97,10 @@ fun SettingDialog(
                             value = changePasswordDialogState.newPassword,
                             onValueChange = { viewModel.onChangeNewPassword(it) },
                             label = {
-                                Text(text = stringResource(R.string.new_password))
+                                Text(
+                                    text = stringResource(R.string.new_password),
+                                    color = MoodiaryCustomTheme.colors.fontColor1
+                                )
                             },
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth(),
@@ -97,7 +114,10 @@ fun SettingDialog(
                             value = changePasswordDialogState.confirmNewPassword,
                             onValueChange = { viewModel.onChangeConfirmNewPassword(it) },
                             label = {
-                                Text(text = stringResource(R.string.confirm_password))
+                                Text(
+                                    text = stringResource(R.string.confirm_password),
+                                    color = MoodiaryCustomTheme.colors.fontColor1
+                                )
                             },
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth(),
@@ -111,6 +131,7 @@ fun SettingDialog(
                 }
                 is DialogKind.NoShow -> { }
             }
-        }
+        },
+        containerColor = MoodiaryCustomTheme.colors.cardColor
     )
 }

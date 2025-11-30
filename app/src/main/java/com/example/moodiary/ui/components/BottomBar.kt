@@ -52,7 +52,7 @@ fun BottomBar(navController: NavController) {
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedTextColor = MoodiaryCustomTheme.colors.fontColor1,
+                    selectedTextColor = MoodiaryCustomTheme.colors.fontColor6,
                     unselectedIconColor = MoodiaryCustomTheme.colors.fontColor3,
                     indicatorColor = MoodiaryCustomTheme.colors.indicationColor1,
                     selectedIconColor = MoodiaryCustomTheme.colors.iconColor1,
