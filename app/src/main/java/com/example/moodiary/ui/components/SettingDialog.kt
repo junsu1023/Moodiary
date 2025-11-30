@@ -59,6 +59,7 @@ fun SettingDialog(
                 text = when(kind) {
                     is DialogKind.Logout -> stringResource(R.string.logout)
                     is DialogKind.ChangePassword -> stringResource(R.string.change_password)
+                    is DialogKind.SignOut -> stringResource(R.string.sign_out)
                     is DialogKind.NoShow -> ""
                 },
                 color = MoodiaryCustomTheme.colors.fontColor1
@@ -128,6 +129,12 @@ fun SettingDialog(
                             )
                         )
                     }
+                }
+                is DialogKind.SignOut -> {
+                    Text(
+                        text = stringResource(R.string.sign_out_dialog_content),
+                        color = MoodiaryCustomTheme.colors.fontColor3
+                    )
                 }
                 is DialogKind.NoShow -> { }
             }

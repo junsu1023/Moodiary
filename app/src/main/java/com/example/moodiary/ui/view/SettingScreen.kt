@@ -132,7 +132,10 @@ fun SettingsScreen(
             description = stringResource(R.string.sign_out),
             trailing = { },
             onClick = {
-                viewModel.signOut()
+                viewModel.setDialogState(
+                    isShow = true,
+                    kind = DialogKind.SignOut
+                )
             }
         )
     }
@@ -145,6 +148,7 @@ fun SettingsScreen(
                 when(uiState.dialogKind) {
                     is DialogKind.Logout -> viewModel.logout(onLoggedOut)
                     is DialogKind.ChangePassword -> viewModel.requestChangePassword()
+                    is DialogKind.SignOut -> viewModel.signOut()
                     is DialogKind.NoShow -> {}
                 }
             },

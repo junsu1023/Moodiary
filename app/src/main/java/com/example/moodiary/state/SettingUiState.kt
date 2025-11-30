@@ -18,5 +18,6 @@ data class ChangePasswordState(
 sealed class DialogKind {
     object NoShow: DialogKind()
     object Logout: DialogKind()
+    object SignOut: DialogKind()
     object ChangePassword: DialogKind()
 }
