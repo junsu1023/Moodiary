@@ -11,12 +11,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +36,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moodiary.R
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.viewmodel.SignUpViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,13 +66,23 @@ fun SignUpScreen(
             value = uiState.email,
             onValueChange = { signUpViewModel.updateEmail(it) },
             label = {
-                Text(text = stringResource(R.string.email))
+                Text(
+                    text = stringResource(R.string.email),
+                    color = MoodiaryCustomTheme.colors.fontColor6
+                )
             },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Email
+            ),
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MoodiaryCustomTheme.colors.fontColor6,
+                unfocusedTextColor = MoodiaryCustomTheme.colors.fontColor6,
+                focusedContainerColor = MoodiaryCustomTheme.colors.transparent,
+                unfocusedContainerColor = MoodiaryCustomTheme.colors.transparent,
+                focusedIndicatorColor = MoodiaryCustomTheme.colors.borderColor1
             )
         )
 
@@ -80,7 +92,10 @@ fun SignUpScreen(
             value = uiState.password,
             onValueChange = { signUpViewModel.updatePassword(it) },
             label = {
-                Text(text = stringResource(R.string.password))
+                Text(
+                    text = stringResource(R.string.password),
+                    color = MoodiaryCustomTheme.colors.fontColor6
+                )
             },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
@@ -100,6 +115,13 @@ fun SignUpScreen(
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Password
+            ),
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MoodiaryCustomTheme.colors.fontColor6,
+                unfocusedTextColor = MoodiaryCustomTheme.colors.fontColor6,
+                focusedContainerColor = MoodiaryCustomTheme.colors.transparent,
+                unfocusedContainerColor = MoodiaryCustomTheme.colors.transparent,
+                focusedIndicatorColor = MoodiaryCustomTheme.colors.borderColor1
             )
         )
 
@@ -108,7 +130,12 @@ fun SignUpScreen(
         OutlinedTextField(
             value = uiState.confirmPassword,
             onValueChange = { signUpViewModel.updateConfirmPassword(it) },
-            label = { Text(text = stringResource(R.string.confirm_password)) },
+            label = {
+                Text(
+                    text = stringResource(R.string.confirm_password),
+                    color = MoodiaryCustomTheme.colors.fontColor6
+                )
+            },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = if(confirmVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -127,6 +154,13 @@ fun SignUpScreen(
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Password
+            ),
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MoodiaryCustomTheme.colors.fontColor6,
+                unfocusedTextColor = MoodiaryCustomTheme.colors.fontColor6,
+                focusedContainerColor = MoodiaryCustomTheme.colors.transparent,
+                unfocusedContainerColor = MoodiaryCustomTheme.colors.transparent,
+                focusedIndicatorColor = MoodiaryCustomTheme.colors.borderColor1
             )
         )
 
@@ -139,9 +173,16 @@ fun SignUpScreen(
                 }
             },
             enabled = uiState.email.isNotBlank() && uiState.password.isNotBlank(),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MoodiaryCustomTheme.colors.buttonColor,
+                disabledContainerColor = MoodiaryCustomTheme.colors.buttonColor.copy(alpha = 0.3f)
+            )
         ) {
-            Text(text = stringResource(R.string.sign_up))
+            Text(
+                text = stringResource(R.string.sign_up),
+                color = MoodiaryCustomTheme.colors.fontColor6
+            )
         }
     }
 

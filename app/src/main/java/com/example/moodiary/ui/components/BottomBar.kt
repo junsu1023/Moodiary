@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.example.moodiary.ui.navigation.Screen
 import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 
@@ -47,6 +48,9 @@ fun BottomBar(navController: NavController) {
                 onClick = {
                     if (currentRoute != item.route) {
                         navController.navigate(item.route) {
+                            popUpTo(navController.graph.id) {
+                                inclusive = true
+                            }
                             launchSingleTop = true
                         }
                     }

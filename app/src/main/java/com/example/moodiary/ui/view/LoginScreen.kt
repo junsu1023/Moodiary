@@ -12,11 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +33,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moodiary.R
+import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.viewmodel.LoginViewModel
 
 @Composable
@@ -67,13 +69,23 @@ fun LoginScreen(
             value = state.email,
             onValueChange = { loginViewModel.onEmailChange(it) },
             label = {
-                Text(text = stringResource(R.string.id))
+                Text(
+                    text = stringResource(R.string.id),
+                    color = MoodiaryCustomTheme.colors.fontColor6
+                )
             },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Email
+            ),
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MoodiaryCustomTheme.colors.fontColor6,
+                unfocusedTextColor = MoodiaryCustomTheme.colors.fontColor6,
+                focusedContainerColor = MoodiaryCustomTheme.colors.transparent,
+                unfocusedContainerColor = MoodiaryCustomTheme.colors.transparent,
+                focusedIndicatorColor = MoodiaryCustomTheme.colors.borderColor1
             )
         )
 
@@ -83,7 +95,10 @@ fun LoginScreen(
             value = state.password,
             onValueChange = { loginViewModel.onPasswordChange(it) },
             label = {
-                Text(text = stringResource(R.string.password))
+                Text(
+                    text = stringResource(R.string.password),
+                    color = MoodiaryCustomTheme.colors.fontColor6
+                )
             },
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
@@ -93,7 +108,7 @@ fun LoginScreen(
                     IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
                         Image(
                             painter = if (passwordVisible.value) painterResource(R.drawable.hide) else painterResource(R.drawable.show),
-                            contentDescription = if (passwordVisible.value) stringResource(R.string.hide_password) else stringResource(R.string.show_password)
+                            contentDescription = if (passwordVisible.value) stringResource(R.string.hide_password) else stringResource(R.string.show_password),
                         )
                     }
                 }
@@ -101,6 +116,13 @@ fun LoginScreen(
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Password
+            ),
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MoodiaryCustomTheme.colors.fontColor6,
+                unfocusedTextColor = MoodiaryCustomTheme.colors.fontColor6,
+                focusedContainerColor = MoodiaryCustomTheme.colors.transparent,
+                unfocusedContainerColor = MoodiaryCustomTheme.colors.transparent,
+                focusedIndicatorColor = MoodiaryCustomTheme.colors.borderColor1
             )
         )
 
@@ -111,9 +133,16 @@ fun LoginScreen(
                 loginViewModel.login()
             },
             enabled = state.email.isNotBlank() && state.password.isNotBlank(),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MoodiaryCustomTheme.colors.buttonColor,
+                disabledContainerColor = MoodiaryCustomTheme.colors.buttonColor.copy(alpha = 0.3f)
+            )
         ) {
-            Text(text = stringResource(R.string.login))
+            Text(
+                text = stringResource(R.string.login),
+                color = MoodiaryCustomTheme.colors.fontColor5
+            )
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -127,7 +156,8 @@ fun LoginScreen(
             ) {
                 Text(
                     text = stringResource(R.string.sign_up),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MoodiaryCustomTheme.typography.bodyMedium,
+                    color = MoodiaryCustomTheme.colors.fontColor6
                 )
             }
 
@@ -138,7 +168,8 @@ fun LoginScreen(
             ) {
                 Text(
                     text = stringResource(R.string.find_password),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MoodiaryCustomTheme.typography.bodyMedium,
+                    color = MoodiaryCustomTheme.colors.fontColor6
                 )
             }
         }

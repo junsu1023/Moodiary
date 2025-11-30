@@ -30,7 +30,8 @@ val lightColors = MoodiaryColors(
     onTrackColor = Color(0xFFE6E1FF),
     offThumbColor = Color(0xFFC6C6C6),
     offTrackColor = Color(0xFFE5E5E5),
-    borderColor1 = Color(0xFF95A5A6)
+    borderColor1 = Color(0xFF95A5A6),
+    transparent = Color(0x00000000)
 )
 
 val darkColors = MoodiaryColors(
@@ -58,7 +59,8 @@ val darkColors = MoodiaryColors(
     onTrackColor = Color(0xFFE6E1FF),
     offThumbColor = Color(0xFFC6C6C6),
     offTrackColor = Color(0xFFE5E5E5),
-    borderColor1 = Color(0xFF95A5A6)
+    borderColor1 = Color(0xFF95A5A6),
+    transparent = Color(0x00000000)
 )
 
 class MoodiaryColors(
@@ -86,7 +88,8 @@ class MoodiaryColors(
     onTrackColor: Color,
     offThumbColor: Color,
     offTrackColor: Color,
-    borderColor1: Color
+    borderColor1: Color,
+    transparent: Color
 ) {
     var background by mutableStateOf(background)
         private set
@@ -163,6 +166,9 @@ class MoodiaryColors(
     var borderColor1 by mutableStateOf(borderColor1)
         private set
 
+    var transparent by mutableStateOf(transparent)
+        private set
+
     fun copy(
         background: Color = this.background,
         fontColor1: Color = this.fontColor1,
@@ -188,7 +194,8 @@ class MoodiaryColors(
         onTrackColor: Color = this.onTrackColor,
         offThumbColor: Color = this.offThumbColor,
         offTrackColor: Color = this.offTrackColor,
-        borderColor1: Color = this.borderColor1
+        borderColor1: Color = this.borderColor1,
+        transparent: Color = this.transparent
     ) = MoodiaryColors(
         background = background,
         fontColor1 = fontColor1,
@@ -214,7 +221,8 @@ class MoodiaryColors(
         onTrackColor = onTrackColor,
         offThumbColor = offThumbColor,
         offTrackColor = offTrackColor,
-        borderColor1 = borderColor1
+        borderColor1 = borderColor1,
+        transparent = transparent
     )
 
     fun updateColorsFrom(other: MoodiaryColors) {
@@ -243,5 +251,6 @@ class MoodiaryColors(
         offThumbColor = other.offThumbColor
         offTrackColor = other.offTrackColor
         borderColor1 = other.borderColor1
+        transparent = other.transparent
     }
 }

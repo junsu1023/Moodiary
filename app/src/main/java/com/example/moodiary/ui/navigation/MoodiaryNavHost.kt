@@ -18,7 +18,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.moodiary.R
 import com.example.moodiary.ui.components.BottomBar
 import com.example.moodiary.ui.components.MoodTopBar
-import com.example.moodiary.ui.theme.MoodiaryColors
 import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.ui.view.DiaryWriteScreen
 import com.example.moodiary.ui.view.EmotionHistoryScreen
@@ -110,7 +109,7 @@ fun MoodiaryNavHost(
             composable(Screen.Signup.route) {
                 SignUpScreen(
                     onSignUpComplete = {
-                        navController.navigate(Screen.Home.route) {
+                        navController.navigate(Screen.Login.route) {
                             popUpTo(Screen.Signup.route) {
                                 inclusive = true
                             }
