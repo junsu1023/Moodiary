@@ -1,4 +1,3 @@
-
 package com.example.moodiary.ui.view
 
 import android.widget.Toast
@@ -89,8 +88,8 @@ fun SettingsScreen(
                         uncheckedThumbColor = MoodiaryCustomTheme.colors.offTrackColor,
                         checkedTrackColor = MoodiaryCustomTheme.colors.onTrackColor,
                         uncheckedTrackColor = MoodiaryCustomTheme.colors.offTrackColor,
-                        checkedBorderColor = MoodiaryCustomTheme.colors.fontColor4,
-                        uncheckedBorderColor = MoodiaryCustomTheme.colors.fontColor4
+                        checkedBorderColor = MoodiaryCustomTheme.colors.fontColor1,
+                        uncheckedBorderColor = MoodiaryCustomTheme.colors.fontColor1
                     )
                 )
             },

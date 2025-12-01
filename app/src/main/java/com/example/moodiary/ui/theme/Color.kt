@@ -31,7 +31,8 @@ val lightColors = MoodiaryColors(
     offThumbColor = Color(0xFFC6C6C6),
     offTrackColor = Color(0xFFE5E5E5),
     borderColor1 = Color(0xFF95A5A6),
-    transparent = Color(0x00000000)
+    transparent = Color(0x00000000),
+    errorColor1 = Color(0xFFB3261E)
 )
 
 val darkColors = MoodiaryColors(
@@ -60,7 +61,8 @@ val darkColors = MoodiaryColors(
     offThumbColor = Color(0xFFC6C6C6),
     offTrackColor = Color(0xFFE5E5E5),
     borderColor1 = Color(0xFF95A5A6),
-    transparent = Color(0x00000000)
+    transparent = Color(0x00000000),
+    errorColor1 = Color(0xFFB3261E)
 )
 
 class MoodiaryColors(
@@ -89,7 +91,8 @@ class MoodiaryColors(
     offThumbColor: Color,
     offTrackColor: Color,
     borderColor1: Color,
-    transparent: Color
+    transparent: Color,
+    errorColor1: Color
 ) {
     var background by mutableStateOf(background)
         private set
@@ -169,6 +172,9 @@ class MoodiaryColors(
     var transparent by mutableStateOf(transparent)
         private set
 
+    var errorColor1 by mutableStateOf(errorColor1)
+        private set
+
     fun copy(
         background: Color = this.background,
         fontColor1: Color = this.fontColor1,
@@ -195,7 +201,8 @@ class MoodiaryColors(
         offThumbColor: Color = this.offThumbColor,
         offTrackColor: Color = this.offTrackColor,
         borderColor1: Color = this.borderColor1,
-        transparent: Color = this.transparent
+        transparent: Color = this.transparent,
+        errorColor1: Color = this.errorColor1
     ) = MoodiaryColors(
         background = background,
         fontColor1 = fontColor1,
@@ -222,7 +229,8 @@ class MoodiaryColors(
         offThumbColor = offThumbColor,
         offTrackColor = offTrackColor,
         borderColor1 = borderColor1,
-        transparent = transparent
+        transparent = transparent,
+        errorColor1 = errorColor1
     )
 
     fun updateColorsFrom(other: MoodiaryColors) {
@@ -252,5 +260,6 @@ class MoodiaryColors(
         offTrackColor = other.offTrackColor
         borderColor1 = other.borderColor1
         transparent = other.transparent
+        errorColor1 = other.errorColor1
     }
 }

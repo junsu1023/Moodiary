@@ -46,4 +46,5 @@
     <string name="bad">나쁨</string>
     <string name="relogin">다시 로그인하세요.</string>
     <string name="sign_out">회원 탈퇴</string>
+    <string name="send_resetting_link">재설정 링크 보내기</string>
 </resources>

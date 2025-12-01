@@ -21,6 +21,7 @@ import com.example.moodiary.ui.components.MoodTopBar
 import com.example.moodiary.ui.theme.MoodiaryCustomTheme
 import com.example.moodiary.ui.view.DiaryWriteScreen
 import com.example.moodiary.ui.view.EmotionHistoryScreen
+import com.example.moodiary.ui.view.ForgotPasswordScreen
 import com.example.moodiary.ui.view.HomeScreen
 import com.example.moodiary.ui.view.LoginScreen
 import com.example.moodiary.ui.view.SettingsScreen
@@ -35,7 +36,7 @@ fun MoodiaryNavHost(
     val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Home.route
     val onBack: () -> Unit = { navController.popBackStack() }
     val showBars = when(currentRoute) {
-        Screen.Login.route, Screen.Signup.route, Screen.Write.route -> false
+        Screen.Login.route, Screen.Signup.route, Screen.Write.route, Screen.ForgotPassword.route -> false
         else -> true
     }
 
@@ -102,7 +103,7 @@ fun MoodiaryNavHost(
                         }
                     },
                     onSignUp = { navController.navigate(Screen.Signup.route) },
-                    onForgotPassword = { }
+                    onForgotPassword = { navController.navigate(Screen.ForgotPassword.route) }
                 )
             }
 
@@ -116,6 +117,10 @@ fun MoodiaryNavHost(
                         }
                     }
                 )
+            }
+
+            composable(Screen.ForgotPassword.route) {
+                ForgotPasswordScreen()
             }
         }
     }
