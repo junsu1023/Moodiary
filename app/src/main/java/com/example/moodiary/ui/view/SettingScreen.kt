@@ -63,7 +63,7 @@ fun SettingsScreen(
                     onCheckedChange = { viewModel.toggleNotifications() },
                     colors = SwitchDefaults.colors(
                         checkedThumbColor = MoodiaryCustomTheme.colors.onThumbColor,
-                        uncheckedThumbColor = MoodiaryCustomTheme.colors.offTrackColor,
+                        uncheckedThumbColor = MoodiaryCustomTheme.colors.offThumbColor,
                         checkedTrackColor = MoodiaryCustomTheme.colors.onTrackColor,
                         uncheckedTrackColor = MoodiaryCustomTheme.colors.offTrackColor,
                         checkedBorderColor = MoodiaryCustomTheme.colors.fontColor1,
@@ -85,7 +85,7 @@ fun SettingsScreen(
                     onCheckedChange = { viewModel.toggleDarkMode() },
                     colors = SwitchDefaults.colors(
                         checkedThumbColor = MoodiaryCustomTheme.colors.onThumbColor,
-                        uncheckedThumbColor = MoodiaryCustomTheme.colors.offTrackColor,
+                        uncheckedThumbColor = MoodiaryCustomTheme.colors.offThumbColor,
                         checkedTrackColor = MoodiaryCustomTheme.colors.onTrackColor,
                         uncheckedTrackColor = MoodiaryCustomTheme.colors.offTrackColor,
                         checkedBorderColor = MoodiaryCustomTheme.colors.fontColor1,
