@@ -12,4 +12,6 @@ interface AuthRepository {
     fun changePassword(newPassword: String): Result<Unit>
 
     fun signOut(): Result<Unit>
+
+    fun requestPasswordReset(email: String): Result<Unit>
 }

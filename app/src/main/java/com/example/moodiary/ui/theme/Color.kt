@@ -13,6 +13,7 @@ val lightColors = MoodiaryColors(
     fontColor4 = Color(0xFF95A5A6),
     fontColor5 = Color(0xFFFFFFFF),
     fontColor6 = Color(0xFF1E1E1E),
+    fontColor7 = Color(0xFF707070),
     cardColor = Color(0xFFEFF4FB),
     buttonColor = Color(0xFF5E73AA),
     goodEmotionColor = Color(0xFF4CAF50),
@@ -43,6 +44,7 @@ val darkColors = MoodiaryColors(
     fontColor4 = Color(0xFF95A5A6),
     fontColor5 = Color(0xFFFFFFFF),
     fontColor6 = Color(0xFFFFFFFF),
+    fontColor7 = Color(0xFF707070),
     cardColor = Color(0xFFE2E2EC),
     buttonColor = Color(0xFF5E73AA),
     goodEmotionColor = Color(0xFF4CAF50),
@@ -73,6 +75,7 @@ class MoodiaryColors(
     fontColor4: Color,
     fontColor5: Color,
     fontColor6: Color,
+    fontColor7: Color,
     cardColor: Color,
     buttonColor: Color,
     goodEmotionColor: Color,
@@ -113,6 +116,9 @@ class MoodiaryColors(
         private set
 
     var fontColor6 by mutableStateOf(fontColor6)
+        private set
+
+    var fontColor7 by mutableStateOf(fontColor7)
         private set
 
     var cardColor by mutableStateOf(cardColor)
@@ -183,6 +189,7 @@ class MoodiaryColors(
         fontColor4: Color = this.fontColor4,
         fontColor5: Color = this.fontColor5,
         fontColor6: Color = this.fontColor6,
+        fontColor7: Color = this.fontColor7,
         cardColor: Color = this.cardColor,
         buttonColor: Color = this.buttonColor,
         goodEmotionColor: Color = this.goodEmotionColor,
@@ -211,6 +218,7 @@ class MoodiaryColors(
         fontColor4 = fontColor4,
         fontColor5 = fontColor5,
         fontColor6 = fontColor6,
+        fontColor7 = fontColor7,
         cardColor = cardColor,
         buttonColor = buttonColor,
         goodEmotionColor = goodEmotionColor,
@@ -241,6 +249,7 @@ class MoodiaryColors(
         fontColor4 = other.fontColor4
         fontColor5 = other.fontColor5
         fontColor6 = other.fontColor6
+        fontColor7 = other.fontColor7
         cardColor = other.cardColor
         buttonColor = other.buttonColor
         goodEmotionColor = other.goodEmotionColor

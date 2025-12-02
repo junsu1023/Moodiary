@@ -1,3 +1,4 @@
+
 package com.example.data.repository
 
 import com.example.data.datasource.AuthDataSource
@@ -18,4 +19,6 @@ class AuthRepositoryImpl @Inject constructor(
     override fun changePassword(newPassword: String): Result<Unit> = authDataSource.changePassword(newPassword)
 
     override fun signOut(): Result<Unit> = authDataSource.signOut()
+
+    override fun requestPasswordReset(email: String): Result<Unit> = authDataSource.requestPasswordReset(email)
 }

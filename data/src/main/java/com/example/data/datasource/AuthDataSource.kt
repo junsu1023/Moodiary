@@ -36,7 +36,18 @@ class AuthDataSource @Inject constructor(
 
     fun signOut(): Result<Unit> = try {
         val user = auth.currentUser ?: throw IllegalStateException("로그인된 회원이 아닙니다.")
-        user.delete()
+        val result = user.delete()
+
+        if(!result.isSuccessful) throw IllegalStateException("회원 탈퇴에 실패했습니다.")
+        Result.success(Unit)
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+
+    fun requestPasswordReset(email: String): Result<Unit> = try {
+        val result = auth.sendPasswordResetEmail(email)
+
+        if(!result.isSuccessful) throw IllegalStateException("비밀번호 재설정 이메일 전송에 실패했습니다.")
         Result.success(Unit)
     } catch (e: Exception) {
         Result.failure(e)

@@ -120,7 +120,15 @@ fun MoodiaryNavHost(
             }
 
             composable(Screen.ForgotPassword.route) {
-                ForgotPasswordScreen()
+                ForgotPasswordScreen(
+                    onLogin = {
+                        navController.navigate(Screen.Login.route) {
+                            popUpTo(Screen.ForgotPassword.route) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                )
             }
         }
     }

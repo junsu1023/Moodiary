@@ -37,7 +37,7 @@ fun BottomBar(navController: NavController) {
         modifier = Modifier
             .navigationBarsPadding()
             .height(60.dp),
-        containerColor = MoodiaryCustomTheme.colors.background
+        containerColor = MoodiaryCustomTheme.colors.transparent
     ) {
         items.forEach { item ->
             NavigationBarItem(
@@ -59,7 +59,7 @@ fun BottomBar(navController: NavController) {
                     unselectedIconColor = MoodiaryCustomTheme.colors.fontColor3,
                     indicatorColor = MoodiaryCustomTheme.colors.indicationColor1,
                     selectedIconColor = MoodiaryCustomTheme.colors.iconColor1,
-                    unselectedTextColor = MoodiaryCustomTheme.colors.iconColor2
+                    unselectedTextColor = MoodiaryCustomTheme.colors.fontColor7
                 )
             )
         }

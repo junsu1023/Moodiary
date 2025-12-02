@@ -1,4 +1,3 @@
-
 package com.example.moodiary.ui.components
 
 import androidx.compose.foundation.layout.Box
@@ -38,7 +37,7 @@ fun MoodTopBar(
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MoodiaryCustomTheme.colors.background
+            containerColor = MoodiaryCustomTheme.colors.transparent
         )
     )
 }

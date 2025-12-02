@@ -9,19 +9,36 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moodiary.R
+import com.example.moodiary.state.SendState
 import com.example.moodiary.ui.theme.MoodiaryCustomTheme
+import com.example.moodiary.util.showToastMessage
 import com.example.moodiary.viewmodel.ForgotPasswordViewModel
 
 @Composable
 fun ForgotPasswordScreen(
-    forgotPasswordViewModel: ForgotPasswordViewModel = hiltViewModel()
+    forgotPasswordViewModel: ForgotPasswordViewModel = hiltViewModel(),
+    onLogin: () -> Unit
 ) {
+    val context = LocalContext.current
     val uiState by forgotPasswordViewModel.uiState.collectAsState()
+
+    LaunchedEffect(uiState.sendState) {
+        when(uiState.sendState) {
+            SendState.SUCCESS -> {
+                showToastMessage(context, context.getString(R.string.check_email_sent))
+                onLogin()
+            }
+            SendState.FAILED -> { showToastMessage(context, uiState.failedError ?: context.getString(R.string.failed_send_email)) }
+            else -> { /* Do nothing */ }
+        }
+    }
+
 
     Column(
         modifier = Modifier
@@ -43,8 +60,8 @@ fun ForgotPasswordScreen(
         Spacer(Modifier.height(12.dp))
 
         Text(
-            text = "가입한 이메일을 입력하면 비밀번호 재설정 링크를 보내드립니다.",
-            style = MaterialTheme.typography.bodyMedium,
+            text = stringResource(R.string.forgot_password_content),
+            style = MoodiaryCustomTheme.typography.bodyMedium,
             color = MoodiaryCustomTheme.colors.fontColor1,
             modifier = Modifier.padding(vertical = 8.dp)
         )
@@ -58,7 +75,12 @@ fun ForgotPasswordScreen(
             },
             modifier = Modifier
                 .fillMaxWidth(),
-            label = { Text("이메일") },
+            label = {
+                Text(
+                    text = stringResource(R.string.email),
+                    color = MoodiaryCustomTheme.colors.fontColor6
+                )
+            },
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             colors = TextFieldDefaults.colors(
@@ -70,29 +92,19 @@ fun ForgotPasswordScreen(
             )
         )
 
-        if(uiState.emailError != null) {
-            Text(
-                text = uiState.emailError!!,
-                color = MoodiaryCustomTheme.colors.errorColor1,
-                style = MoodiaryCustomTheme.typography.bodySmall,
-                modifier = Modifier
-                    .align(Alignment.Start)
-                    .padding(top = 6.dp)
-            )
-        }
-
         Spacer(Modifier.height(20.dp))
 
         Button(
             onClick = {
-
+                forgotPasswordViewModel.sendRequestPasswordReset()
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
+            enabled = uiState.email.isNotBlank(),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MoodiaryCustomTheme.colors.buttonColor,
-                contentColor = MoodiaryCustomTheme.colors.fontColor1
+                disabledContainerColor = MoodiaryCustomTheme.colors.buttonColor.copy(alpha = 0.3f)
             )
         ) {
             if (uiState.isSending) {
