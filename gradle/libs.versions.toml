@@ -24,6 +24,7 @@ serializationJsonVersion = "1.6.0"
 serializationVersion = "1.9.10"
 coroutineVersion = "1.7.3"
 preferencesVersion = "1.2.0"
+splashVersion = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -58,6 +59,7 @@ logging-interceptor = { group = "com.squareup.okhttp3", name="logging-intercepto
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJsonVersion" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutineVersion" }
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "preferencesVersion" }
+core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -69,4 +71,3 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersi
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServiceVersion" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serializationVersion"}
-
