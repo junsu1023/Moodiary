@@ -7,6 +7,7 @@ import java.util.Date
 import java.util.Locale
 
 fun DiaryDto.toModel(): DiaryModel = DiaryModel(
+    this.diaryId,
     this.userId,
     this.content,
     this.timeStamp,

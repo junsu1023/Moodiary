@@ -4,6 +4,7 @@ import com.google.firebase.firestore.ServerTimestamp
 import java.util.Date
 
 data class DiaryDto(
+    val diaryId: String = "",
     val userId: String = "",
     val content: String = "",
     @ServerTimestamp

@@ -1,5 +1,6 @@
 package com.example.data.datasource
 
+import android.util.Log
 import com.example.data.dto.DiaryDto
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -7,7 +8,6 @@ import com.google.firebase.firestore.Query
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class DiaryRemoteDataSource @Inject constructor(
@@ -16,11 +16,19 @@ class DiaryRemoteDataSource @Inject constructor(
 ) {
     suspend fun saveDiary(diaryDto: DiaryDto) {
         val uid = auth.currentUser?.uid ?: throw IllegalStateException("로그인된 회원이 아닙니다.")
-        firestore.collection("users")
+        val docRef = firestore.collection("users")
             .document(uid)
             .collection("diaries")
-            .add(diaryDto)
-            .await()
+            .document()
+        val generatedId = docRef.id
+
+        val diary = diaryDto.copy(diaryId = generatedId)
+
+        docRef.set(diary).addOnSuccessListener {
+            Log.d("DiaryRemoteDataSource", "Diary saved success")
+        }.addOnFailureListener {
+            Log.d("DiaryRemoteDataSource", "Diary saved failed: ${it.message}")
+        }
     }
 
     fun observeUserDiaries(userId: String): Flow<List<DiaryDto>> = callbackFlow {
