@@ -95,7 +95,6 @@ fun HomeScreen(
                     RecentDiaryCard(
                         item = item,
                         onDiaryClick = {
-                            println("test-kjs: id = ${item.diaryId}")
                             onDiaryClick(item.diaryId)
                         }
                     )

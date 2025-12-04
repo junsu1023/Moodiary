@@ -36,7 +36,8 @@ import com.example.moodiary.viewmodel.HistoryViewModel
 
 @Composable
 fun EmotionHistoryScreen(
-    historyViewModel: HistoryViewModel = hiltViewModel()
+    historyViewModel: HistoryViewModel = hiltViewModel(),
+    onDiaryClick: (String) -> Unit
 ) {
     val uiState by historyViewModel.uiState.collectAsState()
     val diaries = uiState.diaries
@@ -115,7 +116,8 @@ fun EmotionHistoryScreen(
                     score = item.emotionScore,
                     emotion = item.emotionScore.getEmotion(),
                     summary = item.content,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    onDiaryClick = { onDiaryClick(item.diaryId) }
                 )
             }
         }

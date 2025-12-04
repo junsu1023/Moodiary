@@ -7,5 +7,5 @@ data class DetailUiState(
     val quote: String = "",
     val score: Int = 0,
     val isLoading: Boolean = false,
-    val errorMessage: String = ""
+    val errorMessage: String? = null
 )

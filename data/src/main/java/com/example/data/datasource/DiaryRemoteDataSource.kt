@@ -62,10 +62,8 @@ class DiaryRemoteDataSource @Inject constructor(
             .await()
 
         return if(document.exists()) {
-            println("test-kjs: success")
             document.toObject(DiaryDto::class.java) ?: throw IllegalStateException("일기 데이터를 변환할 수 없습니다.")
         } else {
-            println("test-kjs: failed")
             throw NoSuchElementException("해당 ID의 일기를 찾을 수 없습니다: $diaryId")
         }
     }

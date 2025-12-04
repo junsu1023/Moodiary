@@ -46,7 +46,9 @@ fun DetailScreen(
     val context = LocalContext.current
 
     LaunchedEffect(uiState.errorMessage) {
-        showToastMessage(context, uiState.errorMessage)
+        if(uiState.errorMessage != null) {
+            showToastMessage(context, uiState.errorMessage!!)
+        }
     }
 
     Box(
@@ -70,7 +72,7 @@ fun DetailScreen(
                 text = uiState.date,
                 style = MoodiaryCustomTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
-                color = MoodiaryCustomTheme.colors.fontColor1,
+                color = MoodiaryCustomTheme.colors.fontColor6,
                 modifier = Modifier.padding(vertical = 24.dp)
             )
 

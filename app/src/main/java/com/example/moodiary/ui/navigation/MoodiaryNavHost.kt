@@ -39,7 +39,7 @@ fun MoodiaryNavHost(
     val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Home.route
     val onBack: () -> Unit = { navController.popBackStack() }
     val showBars = when(currentRoute) {
-        Screen.Login.route, Screen.Signup.route, Screen.Write.route, Screen.ForgotPassword.route -> false
+        Screen.Login.route, Screen.Signup.route, Screen.Write.route, Screen.ForgotPassword.route, Screen.Detail.route -> false
         else -> true
     }
 
@@ -91,7 +91,11 @@ fun MoodiaryNavHost(
             }
 
             composable(Screen.History.route) {
-                EmotionHistoryScreen()
+                EmotionHistoryScreen(
+                    onDiaryClick = { diaryId ->
+                        navController.navigate(Screen.Detail.createRoute(diaryId))
+                    }
+                )
             }
 
             composable(Screen.Settings.route) {
