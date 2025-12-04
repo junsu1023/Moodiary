@@ -6,6 +6,7 @@ import com.example.domain.repository.ModeRepository
 import com.example.domain.repository.SignUpRepository
 import com.example.domain.usecase.ChangePasswordUseCase
 import com.example.domain.usecase.GetDarkModeUseCase
+import com.example.domain.usecase.GetDiaryByIdUseCase
 import com.example.domain.usecase.SetDarkModeUseCase
 import com.example.domain.usecase.LoginUseCase
 import com.example.domain.usecase.LogoutUseCase
@@ -75,4 +76,10 @@ object UseCaseModule {
     fun provideGetDarkModeUseCase(
         modeRepository: ModeRepository
     ): GetDarkModeUseCase = GetDarkModeUseCase(modeRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetDiaryByIdUseCAse(
+        diaryRepository: DiaryRepository
+    ): GetDiaryByIdUseCase = GetDiaryByIdUseCase(diaryRepository)
 }

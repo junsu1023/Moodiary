@@ -7,4 +7,6 @@ interface DiaryRepository {
     suspend fun saveDiary(content: String): Result<Unit>
 
     fun observeCurrentUserDiaries(): Flow<List<DiaryModel>>
+
+    suspend fun getDiaryById(diaryId: String): Result<DiaryModel>
 }

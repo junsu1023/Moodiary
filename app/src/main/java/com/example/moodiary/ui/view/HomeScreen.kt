@@ -41,12 +41,13 @@ import com.example.moodiary.viewmodel.HomeViewModel
 
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel = hiltViewModel()
+    homeViewModel: HomeViewModel = hiltViewModel(),
+    onDiaryClick: (String) -> Unit
 ) {
     val uiState by homeViewModel.uiState.collectAsState()
     val diaries = uiState.diaries
     val todayDiaries = uiState.todayDiaries
-    val recent = diaries.take(3)
+    val recent = diaries.take(5)
     val emotionScores = uiState.todayDiaries.map { it.emotionScore }.average()
     val scrollState = rememberScrollState()
 
@@ -91,7 +92,12 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 for(item in recent.take(3)) {
-                    RecentDiaryCard(item)
+                    RecentDiaryCard(
+                        item = item,
+                        onDiaryClick = {
+                            onDiaryClick(item.diaryId)
+                        }
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -110,14 +116,17 @@ fun HomeScreen(
 }
 
 @Composable
-private fun RecentDiaryCard(item: DiaryModel) {
+private fun RecentDiaryCard(
+    item: DiaryModel,
+    onDiaryClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
-                onClick = { /* TODO: 상세보기로 이동 */ }
+                onClick = { onDiaryClick() }
             ),
         colors = CardDefaults.cardColors(
             containerColor = MoodiaryCustomTheme.colors.cardColor

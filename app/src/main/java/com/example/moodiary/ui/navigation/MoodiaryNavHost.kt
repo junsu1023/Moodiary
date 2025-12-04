@@ -12,13 +12,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navArgument
 import com.example.moodiary.R
 import com.example.moodiary.ui.components.BottomBar
 import com.example.moodiary.ui.components.MoodTopBar
 import com.example.moodiary.ui.theme.MoodiaryCustomTheme
+import com.example.moodiary.ui.view.DetailScreen
 import com.example.moodiary.ui.view.DiaryWriteScreen
 import com.example.moodiary.ui.view.EmotionHistoryScreen
 import com.example.moodiary.ui.view.ForgotPasswordScreen
@@ -36,7 +39,7 @@ fun MoodiaryNavHost(
     val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Home.route
     val onBack: () -> Unit = { navController.popBackStack() }
     val showBars = when(currentRoute) {
-        Screen.Login.route, Screen.Signup.route, Screen.Write.route, Screen.ForgotPassword.route -> false
+        Screen.Login.route, Screen.Signup.route, Screen.Write.route, Screen.ForgotPassword.route, Screen.Detail.route -> false
         else -> true
     }
 
@@ -74,7 +77,11 @@ fun MoodiaryNavHost(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(
+                    onDiaryClick = { diaryId ->
+                        navController.navigate(Screen.Detail.createRoute(diaryId))
+                    }
+                )
             }
 
             composable(Screen.Write.route) {
@@ -84,7 +91,11 @@ fun MoodiaryNavHost(
             }
 
             composable(Screen.History.route) {
-                EmotionHistoryScreen()
+                EmotionHistoryScreen(
+                    onDiaryClick = { diaryId ->
+                        navController.navigate(Screen.Detail.createRoute(diaryId))
+                    }
+                )
             }
 
             composable(Screen.Settings.route) {
@@ -128,6 +139,19 @@ fun MoodiaryNavHost(
                             }
                         }
                     }
+                )
+            }
+
+            composable(
+                route = Screen.Detail.route,
+                arguments = listOf(navArgument("diaryId") {
+                    type = NavType.StringType
+                })
+            ) { backSTackEntry ->
+                val diaryId = backSTackEntry.arguments?.getString("diaryId") ?: ""
+
+                DetailScreen(
+                    diaryId = diaryId
                 )
             }
         }
