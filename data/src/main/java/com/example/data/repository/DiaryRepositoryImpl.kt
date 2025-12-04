@@ -40,4 +40,12 @@ class DiaryRepositoryImpl @Inject constructor(
         val uid = auth.currentUser?.uid ?: throw IllegalStateException("로그인된 유저가 아닙니다.")
         return diaryRemoteDataSource.observeUserDiaries(uid).map { it.map { dto -> dto.toModel() } }
     }
+
+    override suspend fun getDiaryById(diaryId: String): Result<DiaryModel> {
+        return try {
+            Result.success(diaryRemoteDataSource.getDiaryById(diaryId).toModel())
+        } catch (exception: Exception) {
+            Result.failure(exception)
+        }
+    }
 }
