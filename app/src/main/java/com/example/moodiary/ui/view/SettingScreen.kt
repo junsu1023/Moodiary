@@ -66,8 +66,8 @@ fun SettingsScreen(
                         uncheckedThumbColor = MoodiaryCustomTheme.colors.offThumbColor,
                         checkedTrackColor = MoodiaryCustomTheme.colors.onTrackColor,
                         uncheckedTrackColor = MoodiaryCustomTheme.colors.offTrackColor,
-                        checkedBorderColor = MoodiaryCustomTheme.colors.fontColor1,
-                        uncheckedBorderColor = MoodiaryCustomTheme.colors.fontColor1
+                        checkedBorderColor = MoodiaryCustomTheme.colors.transparent,
+                        uncheckedBorderColor = MoodiaryCustomTheme.colors.transparent
                     )
                 )
             },
@@ -88,8 +88,8 @@ fun SettingsScreen(
                         uncheckedThumbColor = MoodiaryCustomTheme.colors.offThumbColor,
                         checkedTrackColor = MoodiaryCustomTheme.colors.onTrackColor,
                         uncheckedTrackColor = MoodiaryCustomTheme.colors.offTrackColor,
-                        checkedBorderColor = MoodiaryCustomTheme.colors.fontColor1,
-                        uncheckedBorderColor = MoodiaryCustomTheme.colors.fontColor1
+                        checkedBorderColor = MoodiaryCustomTheme.colors.transparent,
+                        uncheckedBorderColor = MoodiaryCustomTheme.colors.transparent
                     )
                 )
             },
