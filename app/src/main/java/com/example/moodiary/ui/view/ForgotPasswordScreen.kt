@@ -62,7 +62,7 @@ fun ForgotPasswordScreen(
         Text(
             text = stringResource(R.string.forgot_password_content),
             style = MoodiaryCustomTheme.typography.bodyMedium,
-            color = MoodiaryCustomTheme.colors.fontColor6,
+            color = MoodiaryCustomTheme.colors.fontColor1,
             modifier = Modifier.padding(vertical = 8.dp)
         )
 

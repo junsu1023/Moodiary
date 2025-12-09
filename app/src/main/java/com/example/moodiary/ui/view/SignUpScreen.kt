@@ -181,7 +181,7 @@ fun SignUpScreen(
         ) {
             Text(
                 text = stringResource(R.string.sign_up),
-                color = MoodiaryCustomTheme.colors.fontColor5
+                color = MoodiaryCustomTheme.colors.fontColor6
             )
         }
     }
